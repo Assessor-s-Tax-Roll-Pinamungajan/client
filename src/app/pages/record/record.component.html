@@ -1,0 +1,159 @@
+<div class="container">
+  <!-- Filters -->
+  <mat-card class="filter-card">
+    <div class="filter-grid">
+  
+
+      <!-- Index Dropdown -->
+      <div class="index-filter-group">
+        <mat-form-field appearance="outline" class="dropdown-filter">
+          <mat-label>Filter by Index</mat-label>
+          <mat-select [(ngModel)]="selectedIndex" (selectionChange)="applyFilters()">
+            <mat-option value="">All Index Numbers</mat-option>
+            <mat-option *ngFor="let idx of filteredIndexes" [value]="idx">
+              {{ idx }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- Barangay Dropdown -->
+      <mat-form-field appearance="outline" class="dropdown-filter">
+        <mat-label>Filter by Barangay</mat-label>
+        <mat-select [(ngModel)]="selectedBarangay" (selectionChange)="onBarangayChange()">
+          <mat-option value="">All Barangays</mat-option>
+          <mat-option *ngFor="let brgy of uniqueBarangay" [value]="brgy">
+            {{ brgy }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </mat-card>
+
+  <!-- Table -->
+  <mat-card class="table-card">
+    <div class="table-header">
+      <h3>Land Records Data</h3>
+      <button mat-raised-button color="primary" (click)="exportToExcel()" class="export-btn">
+        <mat-icon>download</mat-icon>
+        Export to Excel
+      </button>
+    </div>
+    <div class="table-container">
+      <table class="land-table">
+        <thead>
+          <tr>
+            <th rowspan="2">Assessors Lot No.</th>
+            <th rowspan="2">Cadastral Lot No.</th>
+            <th colspan="6">ARP</th>
+            <th rowspan="2">Name of Owner</th>
+            <th>Title No.</th>
+            <th>Area (sq.m.)</th>
+            <th rowspan="2">Classification Code</th>
+            <th colspan="2">Improvement (Number of Buildings)</th>
+            <th rowspan="2">Mch</th>
+            <th rowspan="2">Oth</th>
+          </tr>
+          <tr class="sub-header">
+            <td>A</td>
+            <td>B</td>
+            <td>C</td>
+            <td>D</td>
+            <td>E</td>
+            <td>F</td>
+            <td>#</td>
+            <td>#</td>
+            <td>/</td>
+            <td>/</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let lot of filteredRecords" [ngClass]="{'cancelled-lot': lot.cancel_reason}">
+            <td>{{ lot.assessor_no }}</td>
+            <td>{{ lot.cadastral_no }}</td>
+            <td>{{ lot.arp_A }}</td>
+            <td>{{ lot.arp_B }}</td>
+            <td>{{ lot.arp_C }}</td>
+            <td>{{ lot.arp_D }}</td>
+            <td>{{ lot.arp_E }}</td>
+            <td>{{ lot.arp_F }}</td>
+            <td>{{ lot.name_owner }}</td>
+            <td>{{ lot.title_no }}</td>
+            <td>{{ lot.area }}</td>
+            <td>{{ lot.classification_no }}</td>
+            <td>{{ lot.improvement_1 }}</td>
+            <td>{{ lot.improvement_2 }}</td>
+            <td>{{ lot.mch }}</td>
+            <td>{{ lot.oth }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-card>
+
+  <!-- Summary Section -->
+  <mat-card class="summary-card">
+    <div class="summary-container">
+      <div class="summary-left">
+        <div class="summary-field">
+          <label class="summary-label"><strong>Total Assessor's Lot:</strong></label>
+          <div class="summary-value">{{ lotCount }}</div>
+        </div>
+        
+        <div class="summary-field">
+          <label class="summary-label"><strong>Total Area:</strong></label>
+          <div class="summary-value">{{ totalArea | number:'1.2-2' }} sq.m.</div>
+        </div>
+        
+        <div class="summary-field">
+          <label class="summary-label"><strong>Index No.</strong></label>
+          <div class="summary-value">{{ selectedIndex || 'All Index Numbers' }}</div>
+        </div>
+        
+        <div class="summary-field">
+          <label class="summary-label"><strong>Barangay:</strong></label>
+          <div class="summary-value">{{ selectedBarangay || 'All Barangays' }}</div>
+        </div>
+      </div>
+      
+      <div class="summary-right">
+        <div class="classification-section">
+          <h3 class="classification-title"><strong>Classification:</strong></h3>
+          
+          <div class="classification-grid">
+            <!-- Standard categories -->
+            <div class="classification-item">
+              <label class="classification-label"><strong>A </strong>(Agriculture):</label>
+              <div class="classification-value">{{ classificationCounts['A'] }}</div>
+            </div>
+            <div class="classification-item">
+              <label class="classification-label"><strong>C </strong>(Commercial):</label>
+              <div class="classification-value">{{ classificationCounts['C'] }}</div>
+            </div>
+            <div class="classification-item">
+              <label class="classification-label"><strong>M </strong>(Mineral):</label>
+              <div class="classification-value">{{ classificationCounts['M'] }}</div>
+            </div>
+            <div class="classification-item">
+              <label class="classification-label"><strong>R </strong>(Residential):</label>
+              <div class="classification-value">{{ classificationCounts['R'] }}</div>
+            </div>
+            <div class="classification-item">
+              <label class="classification-label"><strong>I </strong>(Industrial):</label>
+              <div class="classification-value">{{ classificationCounts['I'] }}</div>
+            </div>
+            <div class="classification-item">
+              <label class="classification-label"><strong>T </strong>(Timberland):</label>
+              <div class="classification-value">{{ classificationCounts['T'] }}</div>
+            </div>
+            <!-- Dynamic non-standard categories -->
+            <div class="classification-item" *ngFor="let other of otherClassifications">
+              <label class="classification-label"><strong>{{ other.code }} </strong>(Other):</label>
+              <div class="classification-value">{{ other.count }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</div>

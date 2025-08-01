@@ -1,0 +1,211 @@
+  <h5 mat-dialog-title>Update Land Record</h5>
+  <mat-dialog-content>
+    <div *ngIf="warningMessage" style="margin-bottom: 1em;">
+      <mat-card style="background:#ffebee; border:1.5px solid #e53935; color:#b71c1c; display:flex; align-items:center; padding: 0.7em 1em;">
+        <mat-icon style="margin-right:0.5em; color:#e53935;">warning</mat-icon>
+        <span style="white-space: pre-line;">{{ warningMessage }}</span>
+      </mat-card>
+    </div>
+    <form [formGroup]="postForm" class="update-form">
+      <div class="form-section">
+        <div class="form-grid">
+          <mat-form-field appearance="fill" [color]="postForm.get('assessor_no')?.invalid && postForm.get('assessor_no')?.touched ? 'warn' : 'primary'">
+            <mat-label>Assessors Lot No.<span class="mat-form-field-required-marker">*</span></mat-label>
+            <input matInput formControlName="assessor_no" type="number" required>
+            <mat-error *ngIf="postForm.get('assessor_no')?.hasError('required') && postForm.get('assessor_no')?.touched">
+              Assessors Lot No. is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill" [color]="postForm.get('cadastral_no')?.invalid && postForm.get('cadastral_no')?.touched ? 'warn' : 'primary'">
+            <mat-label>Cadastral Lot No.<span class="mat-form-field-required-marker">*</span></mat-label>
+            <input matInput formControlName="cadastral_no" required>
+            <mat-error *ngIf="postForm.get('cadastral_no')?.hasError('required') && postForm.get('cadastral_no')?.touched">
+              Cadastral Lot No. is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-section">
+        <h3 class="section-title">ARP Details</h3>
+        <div class="form-grid arp-grid">
+          <mat-form-field appearance="fill">
+            <mat-label>ARP A</mat-label>
+            <input matInput formControlName="arp_A">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>ARP B</mat-label>
+            <input matInput formControlName="arp_B">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>ARP C</mat-label>
+            <input matInput formControlName="arp_C">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>ARP D</mat-label>
+            <input matInput formControlName="arp_D">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>ARP E</mat-label>
+            <input matInput formControlName="arp_E">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>ARP F</mat-label>
+            <input matInput formControlName="arp_F">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-section">
+        <h3 class="section-title">Owner & Land Info</h3>
+        <div class="form-grid">
+          <mat-form-field appearance="fill" [color]="postForm.get('name_owner')?.invalid && postForm.get('name_owner')?.touched ? 'warn' : 'primary'">
+            <mat-label>Name of Owner<span class="mat-form-field-required-marker">*</span></mat-label>
+            <input matInput formControlName="name_owner" required>
+            <mat-error *ngIf="postForm.get('name_owner')?.hasError('required') && postForm.get('name_owner')?.touched">
+              Name of Owner is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Title No.</mat-label>
+            <input matInput formControlName="title_no" >
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Area (sq.m.)</mat-label>
+            <input matInput formControlName="area">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Classification Code</mat-label>
+            <input matInput formControlName="classification_no">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-section">
+        <h3 class="section-title">Improvements & Others</h3>
+        <div class="form-grid">
+          <mat-form-field appearance="fill">
+            <mat-label>Improvement (Number of Buildings)</mat-label>
+            <input matInput formControlName="improvement_1">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Building No.</mat-label>
+            <input matInput formControlName="improvement_2">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Mch</mat-label>
+            <input matInput formControlName="mch">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Oth</mat-label>
+            <input matInput formControlName="oth">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-section">
+        <h3 class="section-title">Cancellation Details</h3>
+        <mat-form-field appearance="fill">
+          <mat-label>Cancel Reason</mat-label>
+          <mat-select formControlName="cancel_reason">
+            <mat-option *ngFor="let reason of cancelReasons" [value]="reason.value">{{ reason.label }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Subdivision: multiple assessor_nos -->
+        <div *ngIf="postForm.get('cancel_reason')?.value === 'subdivision'">
+          <label>Subdivision Assessor Nos:</label>
+          <div *ngFor="let ctrl of subdivisionAssessorNos.controls; let i = index" class="assessor-no-row">
+            <mat-form-field appearance="fill">
+              <mat-label>Assessor No</mat-label>
+              <mat-select [formControl]="ctrl">
+                <mat-option *ngFor="let lot of allLots" [value]="lot.id" [disabled]="lot.id == data.id">
+                  {{ lot.index_no }}-{{ lot.assessor_no }} 
+                </mat-option>
+              </mat-select> 
+            </mat-form-field>
+            <button mat-icon-button color="warn" (click)="removeSubdivisionAssessorNo(i)" *ngIf="subdivisionAssessorNos.length > 1">
+              <mat-icon>remove_circle</mat-icon>
+            </button>
+          </div>
+          <button mat-stroked-button color="primary" type="button" (click)="addSubdivisionAssessorNo()">Add Assessor No</button>
+        </div>
+
+        <!-- Transfer: single assessor_no -->
+        <div *ngIf="postForm.get('cancel_reason')?.value === 'transfer'">
+          <mat-form-field appearance="fill">
+            <mat-label>Transfer Assessor No</mat-label>
+            <mat-select formControlName="transfer_assessor_no">
+              <mat-option *ngFor="let lot of allLots" [value]="lot.id" [disabled]="lot.id == data.id">
+                {{ lot.index_no }}-{{ lot.assessor_no }} 
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <!-- Duplicate: single assessor_no -->
+        <div *ngIf="postForm.get('cancel_reason')?.value === 'duplicate'">
+          <mat-form-field appearance="fill">
+            <mat-label>Duplicate Assessor No</mat-label>
+            <mat-select formControlName="duplicate_assessor_no">
+              <mat-option *ngFor="let lot of allLots" [value]="lot.id" [disabled]="lot.id == data.id">
+                {{ lot.index_no }}-{{ lot.assessor_no }} 
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <!-- Consolidate: multiple assessor_nos -->
+        <div *ngIf="postForm.get('cancel_reason')?.value === 'consolidate'">
+          <label>Consolidate Assessor Nos:</label>
+          <div *ngFor="let ctrl of consolidateAssessorNos.controls; let i = index" class="assessor-no-row">
+            <mat-form-field appearance="fill">
+              <mat-label>Assessor No</mat-label>
+              <mat-select [formControl]="ctrl">
+                <mat-option *ngFor="let lot of allLots" [value]="lot.id" [disabled]="lot.id == data.id">
+                  {{ lot.index_no }}-{{ lot.assessor_no }} 
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <button mat-icon-button color="warn" (click)="removeConsolidateAssessorNo(i)" *ngIf="consolidateAssessorNos.length > 1">
+              <mat-icon>remove_circle</mat-icon>
+            </button>
+          </div>
+          <button mat-stroked-button color="primary" type="button" (click)="addConsolidateAssessorNo()">Add Assessor No</button>
+        </div>
+      </div>
+      <div class="form-section">
+        <h3 class="section-title">Index & Barangay</h3>
+        <div class="form-grid">
+          <mat-form-field appearance="fill" [color]="postForm.get('index_no')?.invalid && postForm.get('index_no')?.touched ? 'warn' : 'primary'">
+            <mat-label>Index No.<span class="mat-form-field-required-marker">*</span></mat-label>
+            <mat-select formControlName="index_no" required>
+              <mat-option *ngFor="let idx of indexOptions" [value]="idx">{{ idx }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="postForm.get('index_no')?.hasError('required') && postForm.get('index_no')?.touched">
+              Index No. is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill" [color]="postForm.get('barangay')?.invalid && postForm.get('barangay')?.touched ? 'warn' : 'primary'">
+            <mat-label>Barangay<span class="mat-form-field-required-marker">*</span></mat-label>
+            <mat-select formControlName="barangay" required>
+              <mat-option *ngFor="let brgy of barangayOptions" [value]="brgy">{{ brgy }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="postForm.get('barangay')?.hasError('required') && postForm.get('barangay')?.touched">
+              Barangay is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- remarks -->
+      <div class="form-section">
+        <h3 class="section-title">Remarks</h3>
+        <mat-form-field appearance="fill">
+          <mat-label>Remarks</mat-label>
+          <textarea matInput formControlName="remarks" rows="3" placeholder="Enter any additional remarks..."></textarea>
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end" class="action-row">
+    <button mat-stroked-button mat-dialog-close>Close</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
+  </mat-dialog-actions>
+
+

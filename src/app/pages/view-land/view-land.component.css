@@ -1,0 +1,129 @@
+.container {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.filter-card {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.table-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(60, 60, 60, 0.08);
+  overflow: hidden;
+  max-height: 550px;
+}
+
+.table-container {
+  flex: 1;
+  overflow: auto;
+  max-height: 550px;
+}
+
+.land-table {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header-row th {
+  background-color: #f3f4f6;
+  color: #111827;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px 8px;
+  text-align: center;
+  border-bottom: 2px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.data-row td {
+  padding: 12px 8px;
+  text-align: center;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 14px;
+  font-weight: 500;
+  background: #fff;
+  transition: background 0.2s;
+}
+
+.data-row:hover td {
+  background: #f9fafb;
+}
+
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: #f3f4f6;
+}
+
+.sticky-cell {
+  background: #fff;
+}
+
+.cancelled-row {
+  background-color: #fef2f2 !important;
+  color: #dc2626 !important;
+}
+
+.cancelled-row td {
+  color: #dc2626 !important;
+  background-color: #fef2f2 !important;
+}
+
+.cancelled-row:hover td {
+  background-color: #fee2e2 !important;
+}
+
+/* Column widths */
+.ass_id { width: 10%; }
+.cad_no { width: 20%; }
+.name_  { width: 60%; }
+.inde   { width: 20%; }
+.act    { width: 10%; }
+
+/* Filters layout */
+.filter-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.search-input,
+.dropdown-filter {
+  flex: 1;
+  min-width: 250px;
+}
+
+.index-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 250px;
+}
+
+@media (max-width: 900px) {
+  .land-table { min-width: 500px; }
+  .name_ { width: 40%; }
+}

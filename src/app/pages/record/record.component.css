@@ -1,0 +1,268 @@
+.container{
+    margin-top: 1%;
+}
+.land-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fff;
+}
+
+.land-table thead th {
+  background-color: #4a6fa5;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.land-table .sub-header td {
+  background-color: #b9cbe8;
+  text-align: center;
+  font-weight: bold;
+  border: 1px solid #ccc;
+  padding: 6px;
+}
+
+.land-table td {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.land-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Cancelled lot styling */
+.cancelled-lot {
+  color: #d32f2f !important;
+  font-weight: 500;
+}
+
+.cancelled-lot td {
+  color: #d32f2f !important;
+  font-weight: 500;
+}
+
+td{
+  font-weight: bolder;
+}
+
+.filter-grid {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.search-input, .dropdown-filter, .index-filter-group {
+  flex: 0 1 auto;
+  min-width: 400px;
+  margin-bottom: 0 !important;
+  margin-left: 20px;
+}
+
+@media (max-width: 700px) {
+  .filter-grid {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+.filter-section {
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.filter-section input {
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.filter-section button {
+  padding: 0.5rem 1.5rem;
+  background-color: #4a6fa5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.filter-section button:hover {
+  background-color: #3a5a8a;
+}
+
+.summary-card {
+  margin-top: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: 2px solid #ddd;
+}
+
+.summary-container {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.summary-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.summary-field {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.summary-label {
+  min-width: 150px;
+  font-size: 14px;
+  color: #000;
+  margin: 0;
+  font-weight: 600;
+}
+
+.summary-value {
+  flex: 1;
+  font-size: 14px;
+  color: #000;
+  font-weight: 500;
+  padding: 5px 0;
+}
+
+/* Classification Section */
+.summary-right {
+  flex: 1;
+}
+
+.classification-section {
+  
+  border-left: 2px solid #000;
+  padding-left: 20px;
+}
+
+.classification-title {
+  margin: 0 0 15px 0;
+  font-size: 16px;
+  color: #000;
+  font-weight: 600;
+}
+
+.classification-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.classification-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.classification-label {
+  flex: 1;
+  font-size: 13px;
+  color: #000;
+  margin: 0;
+ 
+}
+
+.classification-value {
+  min-width: 40px;
+  text-align: center;
+  font-weight: 600;
+  color: #000;
+  background-color: #f5f5f5;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .summary-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .classification-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .summary-field {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+}
+
+.table-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.table-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.export-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.export-btn:hover {
+  background-color: #45a049;
+}
+
+.export-btn mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.table-container {
+  overflow-x: auto;
+  max-height: 400px;
+  overflow-y: auto;
+}

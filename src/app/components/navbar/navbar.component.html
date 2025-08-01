@@ -1,0 +1,45 @@
+<mat-toolbar color="primary" class="mat-elevation-z2">
+  <!-- App branding -->
+  <mat-icon class="mx-2">location_city</mat-icon>
+  <div class="asses">
+    <span class="mat-title">Assessor's Office</span><br />
+    <span class="subt">Tax Roll Management System</span>
+  </div>
+
+  <span class="example-spacer"></span>
+
+  <!-- Desktop nav links -->
+  <ng-container *ngIf="!isMobileMenuOpen">
+    <button mat-button 
+            [routerLink]="'/'"
+            [ngClass]="{ 'nav-active': isActive('/') }"
+            aria-label="Dashboard">
+      <mat-icon>dashboard</mat-icon>
+      Dashboard
+    </button>
+
+    <button mat-button 
+            [routerLink]="'/records'"
+            [ngClass]="{ 'nav-active': isActive('/records') }"
+            aria-label="Records">
+      <mat-icon>table_chart</mat-icon>
+      Records
+    </button>
+
+    <button mat-button 
+            [routerLink]="'/view-land'"
+            [ngClass]="{ 'nav-active': isActive('/view-land') }"
+            aria-label="View Records">
+      <mat-icon>table_chart</mat-icon>
+      View Lands
+    </button>
+
+    <button mat-button 
+            [routerLink]="'/add-land'"
+            [ngClass]="{ 'nav-active': isActive('/add-land') }"
+            aria-label="Add Record">
+      <mat-icon>add</mat-icon>
+      Add Record
+    </button>
+  </ng-container>
+</mat-toolbar>

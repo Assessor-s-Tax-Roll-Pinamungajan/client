@@ -1,0 +1,151 @@
+<h2>Add New Land Record</h2>
+<div *ngIf="warningMessage" style="margin-bottom: 1em;">
+  <mat-card style="background:#ffebee; border:1.5px solid #e53935; color:#b71c1c; display:flex; align-items:center; padding: 0.7em 1em;">
+    <mat-icon style="margin-right:0.5em; color:#e53935;">warning</mat-icon>
+    <span style="white-space: pre-line;">{{ warningMessage }}</span>
+  </mat-card>
+</div>
+<mat-card>
+  <form [formGroup]="postForm" class="update-form">
+    <!-- assessors lot no. & cadastral lot no. -->
+    <div class="form-section">
+      <div class="form-grid">
+        <mat-form-field appearance="fill" [color]="postForm.get('assessor_no')?.invalid && postForm.get('assessor_no')?.touched ? 'warn' : 'primary'">
+          <mat-label>Assessors Lot No.<span class="mat-form-field-required-marker">*</span></mat-label>
+          <input matInput formControlName="assessor_no" type="number" required>
+          <mat-error *ngIf="postForm.get('assessor_no')?.hasError('required') && postForm.get('assessor_no')?.touched">
+            Assessors Lot No. is required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" [color]="postForm.get('cadastral_no')?.invalid && postForm.get('cadastral_no')?.touched ? 'warn' : 'primary'">
+          <mat-label>Cadastral Lot No.<span class="mat-form-field-required-marker">*</span></mat-label>
+          <input matInput formControlName="cadastral_no" required>
+          <mat-error *ngIf="postForm.get('cadastral_no')?.hasError('required') && postForm.get('cadastral_no')?.touched">
+            Cadastral Lot No. is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <!-- arp details -->
+    <div class="form-section">
+      <h3 class="section-title">ARP Details</h3>
+      <div class="form-grid arp-grid">
+        <mat-form-field appearance="fill">
+          <mat-label>ARP A</mat-label>
+          <input matInput formControlName="arp_A">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>ARP B</mat-label>
+          <input matInput formControlName="arp_B">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>ARP C</mat-label>
+          <input matInput formControlName="arp_C">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>ARP D</mat-label>
+          <input matInput formControlName="arp_D">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>ARP E</mat-label>
+          <input matInput formControlName="arp_E">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>ARP F</mat-label>
+          <input matInput formControlName="arp_F">
+        </mat-form-field>
+      </div>
+    </div>
+    <!-- owner & land info -->
+    <div class="form-section">
+      <h3 class="section-title">Owner & Land Info</h3>
+      <div class="form-grid">
+        <mat-form-field appearance="fill" [color]="postForm.get('name_owner')?.invalid && postForm.get('name_owner')?.touched ? 'warn' : 'primary'">
+          <mat-label>Name of Owner<span class="mat-form-field-required-marker">*</span></mat-label>
+          <input matInput formControlName="name_owner" required>
+          <mat-error *ngIf="postForm.get('name_owner')?.hasError('required') && postForm.get('name_owner')?.touched">
+            Name of Owner is required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Title No.</mat-label>
+          <input matInput formControlName="title_no" >
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Area (sq.m.)</mat-label>
+          <input matInput formControlName="area">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Classification Code</mat-label>
+          <input matInput formControlName="classification_no">
+        </mat-form-field>
+      </div>
+    </div>
+    <!-- improvements & others -->
+    <div class="form-section">
+      <h3 class="section-title">Improvements & Others</h3>
+      <div class="form-grid">
+        <mat-form-field appearance="fill">
+          <mat-label>Improvement (Number of Buildings)</mat-label>
+          <input matInput formControlName="improvement_1">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Building No.</mat-label>
+          <input matInput formControlName="improvement_2">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Mch</mat-label>
+          <input matInput formControlName="mch">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Oth</mat-label>
+          <input matInput formControlName="oth">
+        </mat-form-field>
+      </div>
+    </div>
+    <!-- barangay & index -->
+    <div class="form-section">
+      <h3 class="section-title">Index & Barangay</h3>
+      <div class="form-grid">
+
+        <mat-form-field appearance="fill" [color]="postForm.get('index_no')?.invalid && postForm.get('index_no')?.touched ? 'warn' : 'primary'">
+          <mat-label>Index No.<span class="mat-form-field-required-marker">*</span></mat-label>
+          <input matInput formControlName="index_no" required [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let idx of filteredIndexes" [value]="idx">{{ idx }}</mat-option>
+          </mat-autocomplete>
+
+          <mat-error *ngIf="postForm.get('index_no')?.hasError('required') && postForm.get('index_no')?.touched">
+            Index No. is required
+          </mat-error>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" [color]="postForm.get('barangay')?.invalid && postForm.get('barangay')?.touched ? 'warn' : 'primary'">
+          <mat-label>Barangay<span class="mat-form-field-required-marker">*</span></mat-label>
+          <mat-select formControlName="barangay" required>
+            <mat-option *ngFor="let brgy of barangayOptions" [value]="brgy">{{ brgy }}</mat-option>
+          </mat-select>
+          
+          <mat-error *ngIf="postForm.get('barangay')?.hasError('required') && postForm.get('barangay')?.touched">
+            Barangay is required
+          </mat-error>
+        </mat-form-field>
+
+      </div>
+    </div>
+<!-- remarks -->
+    <div class="form-section">
+      <h3 class="section-title">Remarks</h3>
+      <mat-form-field appearance="fill">
+        <mat-label>Remarks</mat-label>
+        <textarea matInput formControlName="remarks" rows="3" placeholder="Enter any additional remarks..."></textarea>
+      </mat-form-field>
+    </div>    
+    <!-- Buttons -->
+    <div class="form-section" style="text-align:right;">
+      <button mat-stroked-button color="primary" type="button" (click)="postForm.reset()">Reset</button>
+      <button mat-raised-button color="primary" type="button" (click)="onSubmit()">Submit</button>
+    </div>
+  </form>
+</mat-card> 

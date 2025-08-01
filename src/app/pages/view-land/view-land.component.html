@@ -1,0 +1,75 @@
+<div class="container">
+  <!-- Filters -->
+  <mat-card class="filter-card">
+    <div class="filter-grid">
+      <!-- Search Field -->
+      <mat-form-field appearance="outline" class="search-input">
+        <mat-label>Search Records</mat-label>
+        <input
+          matInput
+          placeholder="Search by owner name, cadastral lot..."
+          [(ngModel)]="searchText"
+          (input)="applyFilters()"
+        />
+      </mat-form-field>
+
+      <!-- Dropdown and Button aligned -->
+      <div class="index-filter-group">
+        <mat-form-field appearance="outline" class="dropdown-filter">
+          <mat-label>Filter by Index</mat-label>
+          <mat-select [(ngModel)]="selectedIndex" (selectionChange)="applyFilters()">
+            <mat-option value="">All Index Numbers</mat-option>
+            <mat-option *ngFor="let idx of filteredIndexes" [value]="idx">
+              {{ idx  }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      
+      <mat-form-field appearance="outline" class="dropdown-filter">
+        <mat-label>Filter by Barangay</mat-label>
+        <mat-select [(ngModel)]="selectedBarangay" (selectionChange)="onBarangayChange()">
+          <mat-option value="">All Barangays</mat-option>
+          <mat-option *ngFor="let brgy of uniqueBarangay" [value]="brgy">
+            {{ brgy }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </mat-card>
+
+  <!-- Table -->
+  <mat-card class="table-card">
+    <div class="table-container">
+      <table class="land-table">
+        <!-- Header Row -->
+        <thead>
+          <tr class="header-row">
+            <th class="sticky-header ass_id">Assessor ID</th>
+            <th class="sticky-header cad_no">Cadastral Lot No.</th>
+            <th class="sticky-header name_">Name of Owner</th>
+            <th class="sticky-header inde">Index No.</th>
+            <th class="sticky-header act">Actions</th>
+          </tr>
+        </thead>
+
+        <!-- Data Rows -->
+        <tbody>
+          <tr *ngFor="let record of filteredRecords" 
+              class="data-row"
+              [ngClass]="{'cancelled-row': record.cancel_reason}">
+            <td class="sticky-cell ass_id">{{ record.assessor_no }}</td>
+            <td class="sticky-cell cad_no">{{ record.cadastral_no }}</td>
+            <td class="sticky-cell name_">{{ record.name_owner }}</td>
+            <td class="sticky-cell inde">{{ record.index_no }}</td>
+            <td class="sticky-cell act">
+              <button mat-icon-button color="primary" [routerLink]="['/land-details', record.id]">
+                <mat-icon>visibility</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-card>
+</div>

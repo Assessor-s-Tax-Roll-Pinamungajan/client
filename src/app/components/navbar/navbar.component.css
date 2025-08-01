@@ -1,0 +1,39 @@
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+/* Style for active link */
+.nav-active {
+  color: #578FCA !important;
+  background-color: rgba(87, 143, 202, 0.1);
+  border-radius: 6px;
+}
+
+button.mat-button {
+  border-radius: 6px !important;
+}
+
+.nav-active .mat-icon {
+  color: #578FCA !important;
+}
+
+/* Style for hover */
+button.mat-button:hover {
+  color: #4300FF !important;
+  background-color: rgba(67, 0, 255, 0.06);
+  border-radius: 6px;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+button.mat-button:hover .mat-icon {
+  color: #4300FF !important;
+}
+
+.asses {
+  margin-left: 1%;
+}
+
+.subt {
+  font-size: small;
+}
