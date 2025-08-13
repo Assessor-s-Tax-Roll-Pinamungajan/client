@@ -103,13 +103,18 @@
     <!-- <div class="remarks-section"> -->
     <h3>Remarks:</h3>
     <p>{{ land.remarks }}</p>
+    
+
   </div>
 
   <!-- ✅ Image Display Below the Table -->
-  <img
-    *ngIf="land.barangay && land.index_no"
-    [src]="'assets/' + land.barangay.toUpperCase() + '/' + land.index_no + '.jpg'"
-    alt="Land Photo"
-    style="max-width: 50%; margin: 1rem 0;"
-  />
+  <div style="display: flex; flex-direction: row; align-items: center;">
+
+    <img
+      *ngIf="land.barangay && land.index_no && land.assessor_no"
+      [src]="'assets/' + land.barangay.toUpperCase() + '/individual_' + land.index_no + '/' + land.assessor_no + '.png'"
+      alt="Lot Photo"
+      style="display: block;max-width: 70%; margin-left: 16px; justify-content: space-between;"
+    />
+  </div>
 </div>
