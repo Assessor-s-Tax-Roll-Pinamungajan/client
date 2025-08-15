@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatOptionModule } from '@angular/material/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -34,6 +35,7 @@ import { RouterModule } from '@angular/router';
     MatTableModule,
     MatSortModule,
     MatOptionModule,
+    MatProgressSpinnerModule,
     
   ]
 })
@@ -42,6 +44,7 @@ export class ViewLandComponent implements OnInit {
 
   records: any[] = [];
   filteredRecords: any[] = [];
+  isLoading: boolean = false;
   searchText: string = '';
   selectedIndex: string = '';
   uniqueIndexes: string[]=[];
@@ -54,12 +57,16 @@ export class ViewLandComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.http.get<any[]>('http://localhost:5556/anislag').subscribe(data => {
       this.records = data;
       this.filteredRecords = data;
       this.extractUniqueIndexes(); // Add this line
       this.extractUniqueBarangay(); // Add this line
       this.updateFilteredIndexes(); // Initialize filtered indexes
+      this.isLoading = false;
+    }, _ => {
+      this.isLoading = false;
     });
   }
 

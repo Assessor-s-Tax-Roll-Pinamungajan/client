@@ -30,6 +30,28 @@ button.mat-button:hover .mat-icon {
   color: #4300FF !important;
 }
 
+/* Special styling for Add Record button */
+.add-record-btn {
+  background-color: #1976d2 !important;
+  color: white !important;
+  border-radius: 20px !important;
+  padding: 8px 16px !important;
+  margin-left: 8px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  transition: all 0.2s ease !important;
+}
+
+.add-record-btn:hover {
+  background-color: #1565c0 !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+  transform: translateY(-1px) !important;
+}
+
+.add-record-btn .mat-icon {
+  color: white !important;
+  margin-right: 4px !important;
+}
+
 .asses {
   margin-left: 1%;
 }

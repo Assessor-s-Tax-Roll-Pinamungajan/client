@@ -1,5 +1,5 @@
 
-<div class="land-details" *ngIf="land">
+<div class="land-details" *ngIf="!isLoading && land; else loadingTpl">
   <div class="header-section">
     <h2>Land Record Details</h2>
     <button mat-raised-button color="primary" (click)="onUpdateDialog(land)" class="update-button">
@@ -45,6 +45,11 @@
 
   </div>
 </div>
+<ng-template #loadingTpl>
+  <div style="display:flex; align-items:center; justify-content:center; padding: 48px;">
+    <mat-progress-spinner mode="indeterminate" diameter="56"></mat-progress-spinner>
+  </div>
+</ng-template>
 
 <!-- table -->
   <table class="land-table" [ngClass]="{ 'cancelled-table': land.cancel_reason }">
@@ -97,24 +102,28 @@
       </tr>
     </tbody>
   </table>
+  <div style="display: flex; flex-direction: row; align-items: flex-start; gap: 32px; margin-top: 24px;">
+    <!-- ✅ Image on the left, 70% width -->
+    <div style="flex: 0 0 70%; display: flex; justify-content: center;">
+      <img
+        *ngIf="land.barangay && land.index_no && land.assessor_no"
+        [src]="'assets/' + land.barangay.toUpperCase() + '/'+ land.index_no + '/' + land.assessor_no + '.png'"
+        alt="Lot Photo"
+        style="display: block; max-width: 100%; height: auto;"
+      />
+    </div>
 
-  <!-- remarks -->
-  <div class="remarks-section" *ngIf="land.remarks && land.remarks.trim() !== ''">
-    <!-- <div class="remarks-section"> -->
-    <h3>Remarks:</h3>
-    <p>{{ land.remarks }}</p>
-    
-
-  </div>
-
-  <!-- ✅ Image Display Below the Table -->
-  <div style="display: flex; flex-direction: row; align-items: center;">
-
-    <img
-      *ngIf="land.barangay && land.index_no && land.assessor_no"
-      [src]="'assets/' + land.barangay.toUpperCase() + '/individual_' + land.index_no + '/' + land.assessor_no + '.png'"
-      alt="Lot Photo"
-      style="display: block;max-width: 70%; margin-left: 16px; justify-content: space-between;"
-    />
+    <!-- remarks and changes on the right -->
+    <div class="remarks-section" style="flex: 1;">
+      <div *ngIf="land.remarks && land.remarks.trim() !== ''" class="remarks-block">
+        <h3>Remarks:</h3>
+        <p>{{ land.remarks }}</p>
+      </div>
+      
+      <div *ngIf="land.changes && land.changes.trim() !== ''" class="changes-block">
+        <h3>Changes:</h3>
+        <p>{{ land.changes }}</p>
+      </div>
+    </div>
   </div>
 </div>

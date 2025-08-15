@@ -8,7 +8,7 @@
 .filter-card {
   margin-bottom: 1.5rem;
   padding: 1rem;
-  background-color: #f9fafb;
+  /* background-color: #f9fafb; */
   border: 1px solid #e5e7eb;
   border-radius: 4px;
   flex-shrink: 0;
@@ -18,13 +18,13 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  /* padding: 1rem; */
   background-color: #fff;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(60, 60, 60, 0.08);
   overflow: hidden;
-  max-height: 550px;
+  max-height: 470px;
 }
 
 .table-container {

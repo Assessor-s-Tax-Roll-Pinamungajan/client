@@ -1,4 +1,12 @@
 <div class="container">
+  <!-- Loading state -->
+  <ng-container *ngIf="isLoading; else contentTpl">
+    <mat-card class="table-card" style="display:flex; align-items:center; justify-content:center; height: 300px;">
+      <mat-progress-spinner mode="indeterminate" diameter="48"></mat-progress-spinner>
+    </mat-card>
+  </ng-container>
+
+  <ng-template #contentTpl>
   <!-- Filters -->
   <mat-card class="filter-card">
     <div class="filter-grid">
@@ -72,4 +80,5 @@
       </table>
     </div>
   </mat-card>
+  </ng-template>
 </div>

@@ -4,16 +4,18 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { LandUpdateComponent } from './land-update/land-update.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-land-details',
   standalone: true,
   templateUrl: './land-details.component.html',
   styleUrls: ['./land-details.component.css'], 
-  imports:[CommonModule, HttpClientModule,MatDialogModule, RouterLink],
+  imports:[CommonModule, HttpClientModule,MatDialogModule, RouterLink, MatProgressSpinnerModule],
 })
 export class LandDetailsComponent implements OnInit {
   land: any;
+  isLoading = false;
   onFormAction() {
     console.log("New Post");
   }
@@ -69,8 +71,15 @@ export class LandDetailsComponent implements OnInit {
   }
 
   fetchLandData(id: string) {
-    this.http.get(`http://localhost:5556/anislag/${id}`).subscribe(data => {
-      this.land = data;
+    this.isLoading = true;
+    this.http.get(`http://localhost:5556/anislag/${id}`).subscribe({
+      next: (data) => {
+        this.land = data;
+        this.isLoading = false;
+      },
+      error: () => {
+        this.isLoading = false;
+      }
     });
   }
 }

@@ -1,5 +1,12 @@
   <h5 mat-dialog-title>Update Land Record</h5>
   <mat-dialog-content>
+    <mat-progress-bar *ngIf="isOptionsLoading" mode="indeterminate"></mat-progress-bar>
+         <div style="margin-bottom: 1em;">
+       <mat-card style="background:#e3f2fd; border:1.5px solid #2196f3; color:#1565c0; display:flex; align-items:center; padding: 0.7em 1em;">
+         <mat-icon style="margin-right:0.5em; color:#2196f3;">info</mat-icon>
+                   <span>Username and password verification will be required before updating this record. Changes will be automatically recorded and displayed in the land details view.</span>
+       </mat-card>
+     </div>
     <div *ngIf="warningMessage" style="margin-bottom: 1em;">
       <mat-card style="background:#ffebee; border:1.5px solid #e53935; color:#b71c1c; display:flex; align-items:center; padding: 0.7em 1em;">
         <mat-icon style="margin-right:0.5em; color:#e53935;">warning</mat-icon>
@@ -193,14 +200,16 @@
           </mat-form-field>
         </div>
       </div>
-      <!-- remarks -->
-      <div class="form-section">
-        <h3 class="section-title">Remarks</h3>
-        <mat-form-field appearance="fill">
-          <mat-label>Remarks</mat-label>
-          <textarea matInput formControlName="remarks" rows="3" placeholder="Enter any additional remarks..."></textarea>
-        </mat-form-field>
-      </div>
+             <!-- remarks -->
+       <div class="form-section">
+         <h3 class="section-title">Remarks</h3>
+         <mat-form-field appearance="fill">
+           <mat-label>Remarks</mat-label>
+           <textarea matInput formControlName="remarks" rows="3" placeholder="Enter any additional remarks..."></textarea>
+         </mat-form-field>
+       </div>
+       
+       
     </form>
   </mat-dialog-content>
   <mat-dialog-actions align="end" class="action-row">

@@ -31,12 +31,13 @@
             [ngClass]="{ 'nav-active': isActive('/view-land') }"
             aria-label="View Records">
       <mat-icon>table_chart</mat-icon>
-      View Lands
+      View Land
     </button>
 
-    <button mat-button 
+    <button mat-raised-button 
+            color="accent"
+            class="add-record-btn"
             [routerLink]="'/add-land'"
-            [ngClass]="{ 'nav-active': isActive('/add-land') }"
             aria-label="Add Record">
       <mat-icon>add</mat-icon>
       Add Record
