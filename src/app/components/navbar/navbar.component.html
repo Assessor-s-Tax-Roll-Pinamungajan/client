@@ -1,37 +1,37 @@
-<mat-toolbar color="primary" class="mat-elevation-z2">
+<mat-toolbar  class=" nav mat-elevation-z2">
   <!-- App branding -->
-  <mat-icon class="mx-2">location_city</mat-icon>
+  <mat-icon  class="material-symbols-outlined city" (click)="onSecretIconClick()">account_balance</mat-icon>
   <div class="asses">
-    <span class="mat-title">Assessor's Office</span><br />
-    <span class="subt">Tax Roll Management System</span>
+    <p class="mat-title">Assessor's Office</p>
+    <p class="subt">Tax Roll Management System</p>
   </div>
 
   <span class="example-spacer"></span>
 
   <!-- Desktop nav links -->
   <ng-container *ngIf="!isMobileMenuOpen">
-    <button mat-button 
+    <button mat-button class="btn_on" 
             [routerLink]="'/'"
             [ngClass]="{ 'nav-active': isActive('/') }"
             aria-label="Dashboard">
       <mat-icon>dashboard</mat-icon>
-      Dashboard
+      <p class="nms">Dashboard</p>
     </button>
 
     <button mat-button 
-            [routerLink]="'/records'"
+            [routerLink]="'/records'" class="btn_on" 
             [ngClass]="{ 'nav-active': isActive('/records') }"
             aria-label="Records">
       <mat-icon>table_chart</mat-icon>
-      Records
+      <p class="nms">Records </p>
     </button>
 
     <button mat-button 
-            [routerLink]="'/view-land'"
+            [routerLink]="'/view-land'" class="btn_on" 
             [ngClass]="{ 'nav-active': isActive('/view-land') }"
             aria-label="View Records">
       <mat-icon>table_chart</mat-icon>
-      View Land
+      <p class="nms"> View Land</p>
     </button>
 
     <button mat-raised-button 

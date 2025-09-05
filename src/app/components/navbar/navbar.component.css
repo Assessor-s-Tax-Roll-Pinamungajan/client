@@ -3,37 +3,59 @@
   flex: 1 1 auto;
 }
 
+.nav {
+  background-color: #021982 !important;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 /* Style for active link */
 .nav-active {
-  color: #578FCA !important;
-  background-color: rgba(87, 143, 202, 0.1);
-  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.848) !important;
+  border-radius: 10px;
+}
+.nav-active .nms,
+.nav-active .mat-icon {
+  color: #172e94 !important;
+}
+
+mat-icon{
+  color: #e1e1e1;
+}
+.nms{
+  color: #e1e1e1;
 }
 
 button.mat-button {
   border-radius: 6px !important;
 }
 
-.nav-active .mat-icon {
-  color: #578FCA !important;
+.btn_on{
+  margin-left: 3px;
 }
 
 /* Style for hover */
-button.mat-button:hover {
-  color: #4300FF !important;
-  background-color: rgba(67, 0, 255, 0.06);
-  border-radius: 6px;
+.btn_on:hover {
+  color: #021982 !important;
+  background-color: rgba(255, 255, 255, 0.672) !important;
+  border-radius: 10px;
   transition: background-color 150ms ease, color 150ms ease;
+  transform: translateY(-1px) !important;
 }
 
-button.mat-button:hover .mat-icon {
-  color: #4300FF !important;
+.btn_on:hover .nms,
+.btn_on:hover mat-icon {
+  color: #172e94 !important;
 }
+
+
+
 
 /* Special styling for Add Record button */
 .add-record-btn {
   background-color: #1976d2 !important;
-  color: white !important;
+  color: #e1e1e1 !important;
   border-radius: 20px !important;
   padding: 8px 16px !important;
   margin-left: 8px !important;
@@ -48,14 +70,47 @@ button.mat-button:hover .mat-icon {
 }
 
 .add-record-btn .mat-icon {
-  color: white !important;
+  color: #e1e1e1 !important;
   margin-right: 4px !important;
 }
 
 .asses {
   margin-left: 1%;
+  color: #e1e1e1;
+  /* background-color: orange; */
+  width: 200px;
+  margin-bottom: 10px;
+  /* margin-left: -px; */
+}
+.city {
+  color: #e1e1e1;
+  transform: scale(1.7);
+  margin-left: 10px;
 }
 
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 200,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+
 .subt {
-  font-size: small;
+  font-size: 10px;
+  font-weight: small;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* background-color: red; */
+  
+  
+  
+}
+.mat-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* background-color: yellow; */
+  margin-bottom: -20px;
+  
 }

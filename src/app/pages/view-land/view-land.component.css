@@ -5,6 +5,7 @@
   overflow: hidden;
 }
 
+
 .filter-card {
   margin-bottom: 1.5rem;
   padding: 1rem;
@@ -43,8 +44,8 @@
 }
 
 .header-row th {
-  background-color: #f3f4f6;
-  color: #111827;
+  background-color: #172e94;
+  color: #e1e1e1;
   font-weight: 600;
   font-size: 14px;
   padding: 12px 8px;
@@ -123,7 +124,3 @@
   min-width: 250px;
 }
 
-@media (max-width: 900px) {
-  .land-table { min-width: 500px; }
-  .name_ { width: 40%; }
-}

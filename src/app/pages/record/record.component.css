@@ -8,13 +8,32 @@
   background-color: #fff;
 }
 
+.filter-card{
+  background-color: white;
+  box-shadow: none;
+margin-top: 25px;
+justify-content: space-between;
+}
+.filter-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .land-table thead th {
-  background-color: #4a6fa5;
-  color: white;
+  background-color: #021982;
+  color: #e1e1e1;
   padding: 10px;
   text-align: center;
   border: 1px solid #ccc;
   font-size: 14px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.land-table thead th[rowspan="2"] {
+  top: 0;
 }
 
 .land-table .sub-header td {
@@ -23,11 +42,24 @@
   font-weight: bold;
   border: 1px solid #ccc;
   padding: 6px;
+  position: sticky;
+  top: 42px;
+  z-index: 9;
+}
+.excel{
+  padding-right: 15px;
+}
+
+.land-table .sub-header td {
+  background-color: #b9cbe8;
+  text-align: center;
+  font-weight: bold;
+  border: 1px solid #ccc;
 }
 
 .land-table td {
   text-align: center;
-  padding: 10px;
+  /* padding: 10px; */
   border: 1px solid #ddd;
   font-size: 14px;
 }
@@ -59,6 +91,7 @@ td{
   flex-wrap: wrap;
 }
 
+
 .search-input, .dropdown-filter, .index-filter-group {
   flex: 0 1 auto;
   min-width: 400px;
@@ -89,7 +122,7 @@ td{
 .filter-section button {
   padding: 0.5rem 1.5rem;
   background-color: #4a6fa5;
-  color: white;
+  color: #e1e1e1;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -249,10 +282,12 @@ td{
   cursor: pointer;
   font-weight: 500;
   transition: background-color 0.3s;
+  
 }
 
 .export-btn:hover {
   background-color: #45a049;
+  transform: translateY(-1px) !important;
 }
 
 .export-btn mat-icon {
@@ -265,4 +300,14 @@ td{
   overflow-x: auto;
   max-height: 400px;
   overflow-y: auto;
+  position: relative;
+}
+
+/* Ensure the table takes full width within the container */
+.land-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fff;
+  position: relative;
 }

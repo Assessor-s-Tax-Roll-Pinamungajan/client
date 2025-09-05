@@ -1,0 +1,67 @@
+import { Component, Inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-user-verification',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule
+  ],
+  templateUrl: './user-verification.component.html',
+  styleUrls: ['./user-verification.component.css']
+})
+export class UserVerificationComponent {
+  errorMessage = '';
+  verificationForm: FormGroup;
+  hidePassword = true;
+
+  constructor(
+    private fb: FormBuilder,
+    public dialogRef: MatDialogRef<UserVerificationComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: {
+      changes: string[];
+    }
+  ) {
+    this.verificationForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
+
+  togglePasswordVisibility() {
+    this.hidePassword = !this.hidePassword;
+  }
+
+  onSubmit() {
+    if (this.verificationForm.valid) {
+      const { username, password } = this.verificationForm.value;
+      if (username && password) {
+        const changes = (this.data?.changes || []).join(', ');
+        const changesText = `Updated by ${username} on ${new Date().toLocaleString()}. Changes: ${changes}`;
+        this.dialogRef.close({
+          verified: true,
+          username: username,
+          changes: changesText
+        });
+      } else {
+        this.errorMessage = 'Invalid username or password. Please try again.';
+      }
+    }
+  }
+}
+
+

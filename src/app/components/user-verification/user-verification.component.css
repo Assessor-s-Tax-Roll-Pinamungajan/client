@@ -1,0 +1,5 @@
+mat-dialog-content { min-width: 400px; height: 280px; }
+.helper-text { margin-bottom: 20px; color: #666; }
+.actions { display:flex; justify-content: flex-end; gap: 8px; margin-top: 8px; }
+
+

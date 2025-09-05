@@ -1,0 +1,42 @@
+<h2 mat-dialog-title>User Verification Required</h2>
+<mat-dialog-content>
+  <p class="helper-text">
+    Please enter your username and password to confirm this update.
+  </p>
+
+  <form [formGroup]="verificationForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline" style="width: 100%; margin-bottom: 16px;">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username" placeholder="Enter your username" required>
+      <mat-error *ngIf="verificationForm.get('username')?.hasError('required')">
+        Username is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 100%; margin-bottom: 16px;">
+      <mat-label>Password</mat-label>
+      <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" placeholder="Enter your password" required>
+      <button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility()" aria-label="Toggle password visibility">
+        <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+      <mat-error *ngIf="verificationForm.get('password')?.hasError('required')">
+        Password is required
+      </mat-error>
+    </mat-form-field>
+
+    <div *ngIf="errorMessage" style="margin-bottom: 16px;">
+      <mat-card style="background:#ffebee; border:1px solid #e53935; color:#b71c1c; padding: 12px;">
+        <mat-icon style="margin-right:8px; vertical-align: middle;">error</mat-icon>
+        {{ errorMessage }}
+      </mat-card>
+    </div>
+
+    <div class="actions">
+      <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="verificationForm.invalid">Verify & Update</button>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end"></mat-dialog-actions>
+
+

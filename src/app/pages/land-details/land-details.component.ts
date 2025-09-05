@@ -5,17 +5,29 @@ import { CommonModule } from '@angular/common';
 import { LandUpdateComponent } from './land-update/land-update.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+
 
 @Component({
   selector: 'app-land-details',
   standalone: true,
   templateUrl: './land-details.component.html',
   styleUrls: ['./land-details.component.css'], 
-  imports:[CommonModule, HttpClientModule,MatDialogModule, RouterLink, MatProgressSpinnerModule],
+  imports:[CommonModule, HttpClientModule,
+           MatDialogModule, RouterLink, 
+           MatProgressSpinnerModule, MatButtonModule, 
+           MatCardModule, MatIconModule,
+           MatTableModule, MatSortModule] ,
 })
 export class LandDetailsComponent implements OnInit {
   land: any;
   isLoading = false;
+  otherLots: any[] = [];
+  isLoadingOtherLots = false;
   onFormAction() {
     console.log("New Post");
   }
@@ -76,9 +88,29 @@ export class LandDetailsComponent implements OnInit {
       next: (data) => {
         this.land = data;
         this.isLoading = false;
+        // Fetch other lots with the same index
+        if (this.land.index_no) {
+          this.fetchOtherLots(this.land.index_no, id);
+        }
       },
       error: () => {
         this.isLoading = false;
+      }
+    });
+  }
+
+  fetchOtherLots(indexNo: string, currentLotId: string) {
+    this.isLoadingOtherLots = true;
+    this.http.get<any[]>(`http://localhost:5556/anislag`).subscribe({
+      next: (data) => {
+        // Filter lots with the same index but exclude the current lot
+        this.otherLots = data.filter(lot => 
+          lot.index_no === indexNo && lot.id.toString() !== currentLotId
+        );
+        this.isLoadingOtherLots = false;
+      },
+      error: () => {
+        this.isLoadingOtherLots = false;
       }
     });
   }

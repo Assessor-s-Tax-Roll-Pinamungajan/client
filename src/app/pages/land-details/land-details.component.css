@@ -1,10 +1,14 @@
 .land-details {
-  margin: 2rem auto;
+  /* margin: 2rem auto;c */
   max-width: 100%;
   padding: 1rem;
   border-radius: 12px;
-  background-color: #f9f9f9;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
+}
+h2{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* padding-top: -100px; */
 }
 
 .header-section {
@@ -14,21 +18,31 @@
   margin-bottom: 1rem;
   padding-bottom: 1rem;
   border-bottom: 2px solid #e0e0e0;
+  /* margin-bottom: -20px; */
 }
 
-.land-details h2  {
-  margin: 0;
+.land-details  {
+  /* margin: 0; */
   color: #2e3b55;
 }
 
+
+
 .update-button {
-  background-color: #4a6fa5;
-  color: white;
-  padding: 8px 24px;
-  border-radius: 6px;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
+  background-color: #1976d2 !important;
+  color: #e1e1e1 !important;
+  /* border-radius: 20px !important; */
+  padding: 8px 16px !important;
+  margin-left: 8px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  transition: all 0.2s ease !important;
 }
+.update-button:hover{
+  background-color: #1565c0 !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+  transform: translateY(-1px) !important;
+}
+
 
 .update-button:hover {
   background-color: #3a5a8a;
@@ -62,7 +76,7 @@
   text-align: center;
   font-weight: bold;
   border: 1px solid #ccc;
-  padding: 6px;
+  padding: 6px
 }
 
 .land-table td {
@@ -72,9 +86,7 @@
   font-size: 14px;
 }
 
-.land-table tbody tr:hover {
-  background-color: #f1f1f1;
-}
+
 td{
   font-weight: bolder;
   
@@ -167,14 +179,17 @@ body {
 
 /* Remarks and Changes sections */
 .remarks-section {
-  background-color: #f8f9fa;
+  /* background-color: #f8f9fa; */
   padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
   border-radius: 8px;
-  border: 1px solid #e9ecef;
+  /* border: 1px solid #e9ecef; */
 }
 
 .remarks-block, .changes-block {
   margin-bottom: 1.5rem;
+  width: 45%;
 }
 
 .remarks-block:last-child, .changes-block:last-child {
@@ -190,6 +205,16 @@ body {
   padding-bottom: 0.25rem;
 }
 
+.other-lots-table ng-container td{
+  padding: 0px;
+  background-color: blue;
+
+}
+
+ng-template{
+  background-color: white;
+}
+
 .remarks-block p, .changes-block p {
   color: #495057;
   line-height: 1.6;
@@ -200,11 +225,150 @@ body {
 .changes-block {
   background-color: #e3f2fd;
   padding: 1rem;
+  width: 45%;
   border-radius: 6px;
   border-left: 4px solid #2196f3;
 }
 
 .changes-block h3 {
   color: #1565c0;
+  
   border-bottom-color: #2196f3;
+}
+.other-lots-table h3 {
+  font-weight: 500;
+}
+
+/* Other Lots Table Styles */
+.other-lots-section {
+  background-color: white;
+  /* padding: 1.5rem; */
+  /* border-radius: 8px; */
+  /* border: 1px solid #e9ecef; */
+  margin-bottom: 1.5rem;
+}
+
+.other-lots-section h3 {
+  color: #2e3b55;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #4a6fa5;
+  padding-bottom: 0.25rem;
+}
+
+/* Table container for scrolling */
+.table-container {
+  max-height: 500px; /* You can adjust this value to control table height */
+  overflow-y: auto;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+}
+
+.other-lots-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 6px;
+  overflow: hidden;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+}
+
+/* Make table header sticky when scrolling */
+.other-lots-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: white;
+}
+
+.other-lots-table th {
+  background-color: #4a6fa5;
+  color: white;
+  /* padding: 12px 8px; */
+  text-align: center;
+  font-weight: 600;
+  font-size: 13px;
+  border: 1px solid #e0e0e0;
+}
+
+.other-lots-table td {
+  padding: 4px 6px;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+  font-size: 12px;
+}
+
+.other-lots-table tbody tr {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.other-lots-table tbody tr:hover {
+  background-color: rgb(209, 215, 238) !important;
+}
+
+/* More specific selectors for Material table */
+.other-lots-table .mat-mdc-row:hover {
+  background-color:  rgb(209, 215, 238)!important;
+}
+
+.other-lots-table .mat-mdc-row {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.lot-link {
+  color: #1976d2;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.lot-link:hover {
+  text-decoration: underline;
+  color: #1565c0;
+}
+
+/* Remove link styling since entire row is now clickable */
+.other-lots-table td a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cancelled-status {
+  color: #d32f2f;
+  font-weight: 500;
+  background-color: #ffebee;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.active-status {
+  color: #2e7d32;
+  font-weight: 500;
+  background-color: #e8f5e8;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.no-other-lots {
+  text-align: center;
+  color: #6c757d;
+  font-style: italic;
+  padding: 2rem;
+}
+
+.loading-other-lots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 2rem;
+  color: #6c757d;
+}
+
+.loading-other-lots span {
+  font-size: 14px;
 }

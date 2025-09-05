@@ -1,6 +1,8 @@
 <div class="container">
   <!-- Filters -->
   <mat-card class="filter-card">
+    <div class="filter-container"> 
+
     <div class="filter-grid">
   
 
@@ -27,18 +29,23 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+
+    </div >
+
+    <div class="excel"> 
+      <button mat-raised-button color="primary" (click)="exportToExcel()" class="export-btn">
+      <mat-icon>download</mat-icon>
+      Export
+    </button>
     </div>
+
+    </div>
+   
   </mat-card>
 
   <!-- Table -->
   <mat-card class="table-card">
-    <div class="table-header">
-      <h3>Land Records Data</h3>
-      <button mat-raised-button color="primary" (click)="exportToExcel()" class="export-btn">
-        <mat-icon>download</mat-icon>
-        Export to Excel
-      </button>
-    </div>
+
     <div class="table-container">
       <table class="land-table">
         <thead>

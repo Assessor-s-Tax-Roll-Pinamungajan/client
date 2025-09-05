@@ -15,7 +15,7 @@ import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import { LandService } from '../land.service';
 import { HttpClient } from '@angular/common/http';
-import { UserVerificationDialogComponent } from '../../../components/user-verification-dialog/user-verification-dialog.component';
+import { UserVerificationComponent } from '../../../components/user-verification/user-verification.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
@@ -41,8 +41,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
         ReactiveFormsModule,
         MatProgressBarModule,
         
-        // Custom Components
-        UserVerificationDialogComponent
+        // Custom Components (do not include dialog component here; opened dynamically)
   ],
   templateUrl: './land-update.component.html',
   styleUrl: './land-update.component.css',
@@ -251,7 +250,7 @@ export class LandUpdateComponent {
     }
 
     // Show verification dialog
-    const dialogRef = this.dialog.open(UserVerificationDialogComponent, {
+    const dialogRef = this.dialog.open(UserVerificationComponent, {
       width: '500px',
       data: {
         originalData: this.data,
