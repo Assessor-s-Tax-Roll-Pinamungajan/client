@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -54,19 +55,21 @@ export class ViewLandComponent implements OnInit {
 
   columnsToDisplay = [ 'assessor_no','cadastral_no', 'name_owner','index_no', 'action'];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.http.get<any[]>('http://localhost:5556/anislag').subscribe(data => {
+    this.http.get<any[]>(this.apiService.getAnislagUrl()).subscribe( {
+      next: (data) => {
       this.records = data;
       this.filteredRecords = data;
       this.extractUniqueIndexes(); // Add this line
       this.extractUniqueBarangay(); // Add this line
       this.updateFilteredIndexes(); // Initialize filtered indexes
       this.isLoading = false;
-    }, _ => {
+    }, error: () => {
       this.isLoading = false;
+    }
     });
   }
 
@@ -80,7 +83,7 @@ export class ViewLandComponent implements OnInit {
 // delete land
   // onDelete(id: number) {
   //   if (confirm('Are you sure you want to delete this record?')) {
-  //     this.http.delete(`http://localhost:5556/anislag/${id}`).subscribe(() => {
+  //     this.http.delete(`http://192.168.8.8:5556/anislag/${id}`).subscribe(() => {
   //       this.records = this.records.filter(r => r.id !== id);
   //       this.filteredRecords = this.filteredRecords.filter(r => r.id !== id);
   //       this.extractUniqueIndexes(); // Update indexes too

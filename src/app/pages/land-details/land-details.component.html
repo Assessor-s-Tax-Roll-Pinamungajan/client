@@ -108,63 +108,79 @@
   </table>
   <div style="display: flex; flex-direction: row; align-items: flex-start; gap: 32px; margin-top: 24px;">
     <!-- ✅ Image on the left, 70% width -->
-    <div style="flex: 0 0 60%; display: flex; justify-content: center;">
-      <img
-        *ngIf="land.barangay && land.index_no && land.assessor_no"
-        [src]="'assets/' + land.barangay.toUpperCase() + '/'+ land.index_no + '/' + land.assessor_no + '.png'"
-        alt="Lot Photo should be found at client/src/assets/barangay/section/.png"
-        style="display: block; max-width: 100%; height: auto;"
-      />
-    </div>
 
-    <!-- Other lots with same index table -->
-    <div class="other-lots-section" style="flex: 0 0 36; margin-bottom: 24px;">
-      <div *ngIf="otherLots.length > 0" class="other-lots-table">
-        <h3>Other Lots in Index {{ land.index_no }}</h3>
-        <div class="table-container">
-            <table mat-table [dataSource]="otherLots" class="other-lots-table">
-              <!-- Assessor No Column -->
-              <ng-container matColumnDef="assessor_no" >
-                <th mat-header-cell *matHeaderCellDef>Assessor Lot No.</th>
-                <td mat-cell *matCellDef="let lot">{{ lot.assessor_no }}</td>
-              </ng-container>
+  <div class="left-section; style=flex: 0 0 100%">
+        <div style="flex: 0 0 50%; display: flex; justify-content: center; margin-bottom: 24px;">
+          <img
+            *ngIf="land.barangay && land.index_no && land.assessor_no"
+            [src]="'assets/' + land.barangay.toUpperCase() + '/'+ land.index_no + '/' + land.assessor_no + '.png'"
+            alt="Lot Photo should be found at client/src/assets/barangay/index_no/assessor_no.png"
+            style="display: block; max-width: 100%; height: auto;"
+          />
+        </div>
 
-              <!-- Owner Name Column -->
-              <ng-container matColumnDef="name_owner">
-                <th mat-header-cell *matHeaderCellDef>Name of Owner</th>
-                <td mat-cell *matCellDef="let lot">{{ lot.name_owner }}</td>
-              </ng-container>
+        <div style="flex: 0 0 5%; display: flex; justify-content: center;">
+          <img
+            *ngIf="land.barangay && land.index_no && land.assessor_no"
+            [src]="'assets/' + land.barangay.toUpperCase() + '/'+ land.barangay.toUpperCase() + '.png'"
+            alt="Barangay Photo should be found at client/src/assets/barangay/barangay.png"
+            style="display: block; max-width: 100%; height: auto;"
+          />
+        </div>
+  </div>
 
-              <tr mat-header-row *matHeaderRowDef="['assessor_no', 'name_owner']"></tr>
-              <tr mat-row *matRowDef="let row; columns: ['assessor_no', 'name_owner'];" 
-                  [routerLink]="['/land-details', row.id]"></tr>
-            </table>
+  <div class="right-section">
+  
+      <div class="other-lots-section" style="flex: 0 0 36; margin-bottom: 24px;">
+        <div *ngIf="otherLots.length > 0" class="other-lots-table">
+          <h3>Other Lots in Index {{ land.index_no }}</h3>
+          <div class="table-container">
+              <table mat-table [dataSource]="otherLots" class="other-lots-table">
+                <!-- Assessor No Column -->
+                <ng-container matColumnDef="assessor_no" >
+                  <th mat-header-cell *matHeaderCellDef>Assessor Lot No.</th>
+                  <td mat-cell *matCellDef="let lot">{{ lot.assessor_no }}</td>
+                </ng-container>
+
+                <!-- Owner Name Column -->
+                <ng-container matColumnDef="name_owner">
+                  <th mat-header-cell *matHeaderCellDef>Name of Owner</th>
+                  <td mat-cell *matCellDef="let lot">{{ lot.name_owner }}</td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="['assessor_no', 'name_owner']"></tr>
+                <tr mat-row *matRowDef="let row; columns: ['assessor_no', 'name_owner'];" 
+                    [routerLink]="['/land-details', row.id]"></tr>
+              </table>
+          </div>
+        </div>
+        
+        <div *ngIf="!isLoadingOtherLots && otherLots.length === 0 && land.index_no" class="no-other-lots">
+          <p>No other lots found in index {{ land.index_no }}</p>
+        </div>
+        
+        <div *ngIf="isLoadingOtherLots" class="loading-other-lots">
+          <mat-progress-spinner mode="indeterminate" diameter="32"></mat-progress-spinner>
+          <span>Loading other lots...</span>
         </div>
       </div>
-      
-      <div *ngIf="!isLoadingOtherLots && otherLots.length === 0 && land.index_no" class="no-other-lots">
-        <p>No other lots found in index {{ land.index_no }}</p>
-      </div>
-      
-      <div *ngIf="isLoadingOtherLots" class="loading-other-lots">
-        <mat-progress-spinner mode="indeterminate" diameter="32"></mat-progress-spinner>
-        <span>Loading other lots...</span>
-      </div>
-    </div>
 
-    <!-- remarks and changes on the right -->
+      <div class="remarks-section" style="flex: 0 0 100%;">
+          <div *ngIf="land.remarks && land.remarks.trim() !== ''" class="remarks-block" style="width: 100%;">
+            <h3>Remarks:</h3>
+            <p>{{ land.remarks }}</p>
+          </div>
+          
+          <div *ngIf="land.changes && land.changes.trim() !== ''" class="changes-block" style="width: 100%;">
+            <h3>Changes:</h3>
+            <p>{{ land.changes }}</p>
+          </div>
+      </div>
 
   </div>
-  <div class="remarks-section" style="flex: 1;">
-    <div *ngIf="land.remarks && land.remarks.trim() !== ''" class="remarks-block">
-      <h3>Remarks:</h3>
-      <p>{{ land.remarks }}</p>
-    </div>
+
+
+  </div>
     
-    <div *ngIf="land.changes && land.changes.trim() !== ''" class="changes-block">
-      <h3>Changes:</h3>
-      <p>{{ land.changes }}</p>
-    </div>
-  </div>
 
 </div>

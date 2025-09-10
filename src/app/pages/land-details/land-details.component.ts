@@ -84,7 +84,7 @@ export class LandDetailsComponent implements OnInit {
 
   fetchLandData(id: string) {
     this.isLoading = true;
-    this.http.get(`http://localhost:5556/anislag/${id}`).subscribe({
+    this.http.get(`http://192.168.8.8:5556/api/anislag/${id}`).subscribe({
       next: (data) => {
         this.land = data;
         this.isLoading = false;
@@ -101,7 +101,7 @@ export class LandDetailsComponent implements OnInit {
 
   fetchOtherLots(indexNo: string, currentLotId: string) {
     this.isLoadingOtherLots = true;
-    this.http.get<any[]>(`http://localhost:5556/anislag`).subscribe({
+    this.http.get<any[]>(`http://192.168.8.8:5556/api/anislag`).subscribe({
       next: (data) => {
         // Filter lots with the same index but exclude the current lot
         this.otherLots = data.filter(lot => 

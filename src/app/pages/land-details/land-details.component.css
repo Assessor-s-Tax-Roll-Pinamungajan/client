@@ -181,7 +181,7 @@ body {
 .remarks-section {
   /* background-color: #f8f9fa; */
   padding: 1.5rem;
-  display: flex;
+  /* display: flex; */
   justify-content: space-between;
   border-radius: 8px;
   /* border: 1px solid #e9ecef; */

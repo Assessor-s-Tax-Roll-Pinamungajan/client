@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-user-verification',
@@ -32,6 +33,7 @@ export class UserVerificationComponent {
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<UserVerificationComponent>,
+    private userService: UserService,
     @Inject(MAT_DIALOG_DATA) public data: {
       changes: string[];
     }
@@ -50,12 +52,20 @@ export class UserVerificationComponent {
     if (this.verificationForm.valid) {
       const { username, password } = this.verificationForm.value;
       if (username && password) {
-        const changes = (this.data?.changes || []).join(', ');
-        const changesText = `Updated by ${username} on ${new Date().toLocaleString()}. Changes: ${changes}`;
-        this.dialogRef.close({
-          verified: true,
-          username: username,
-          changes: changesText
+        // Verify with backend
+        this.userService.verifyUser({ username, password }).subscribe({
+          next: (response) => {
+            const changes = (this.data?.changes || []).join(', ');
+            const changesText = `Updated by ${username} on ${new Date().toLocaleString()}. Changes: ${changes}`;
+            this.dialogRef.close({
+              verified: true,
+              username: username,
+              changes: changesText
+            });
+          },
+          error: (error) => {
+            this.errorMessage = 'Invalid username or password. Please try again.';
+          }
         });
       } else {
         this.errorMessage = 'Invalid username or password. Please try again.';

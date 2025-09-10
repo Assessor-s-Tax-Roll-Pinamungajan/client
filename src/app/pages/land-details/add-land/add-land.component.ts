@@ -9,11 +9,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatOptionModule } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { UserVerificationComponent } from '../../../components/user-verification/user-verification.component';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-add-land',
@@ -65,7 +67,9 @@ export class AddLandComponent {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog,
+    private userService: UserService
   ) {
     this.postForm = this.fb.group({
       assessor_no: ['', Validators.required],
@@ -94,14 +98,14 @@ export class AddLandComponent {
       consolidate_assessor_nos: this.fb.array([]),
       remarks: [''],
     });
-    this.http.get<any[]>('http://localhost:5556/anislag/indexes').subscribe(data => {
+    this.http.get<any[]>('http://192.168.8.8:5556/api/anislag/indexes').subscribe(data => {
       this.indexOptions = data.map(item => item.index_no).filter((v: string) => !!v);
       this.filteredIndexes = this.indexOptions.slice();
     });
-    this.http.get<any[]>('http://localhost:5556/anislag/barangays').subscribe(data => {
+    this.http.get<any[]>('http://192.168.8.8:5556/api/anislag/barangays').subscribe(data => {
       this.barangayOptions = data.map(item => item.barangay).filter((v: string) => !!v);
     });
-    this.http.get<any[]>('http://localhost:5556/anislag').subscribe(data => {
+    this.http.get<any[]>('http://192.168.8.8:5556/api/anislag').subscribe(data => {
       this.allLots = data;
     });
     // Listen for index_no changes to filter options
@@ -208,7 +212,29 @@ export class AddLandComponent {
       cancel_reason: cancel_reason ? cancel_reason : null,
       cancel_details,
     };
-    this.http.post('http://localhost:5556/anislag', payload).subscribe(() => {
+    // Show verification dialog
+    const dialogRef = this.dialog.open(UserVerificationComponent, {
+      width: '500px',
+      data: {
+        changes: ['Adding new land record']
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.verified) {
+        this.processAddLand(payload, result.changes);
+      }
+    });
+  }
+
+  private processAddLand(payload: any, userChanges: string) {
+    // Add user verification info to the payload
+    const finalPayload = {
+      ...payload,
+      changes: userChanges
+    };
+
+    this.http.post('http://192.168.8.8:5556/api/anislag', finalPayload).subscribe(() => {
       this.router.navigate(['/view-land']);
     });
   }
