@@ -15,7 +15,7 @@
         <mat-label>Search Records</mat-label>
         <input
           matInput
-          placeholder="Search by owner name, cadastral lot..."
+          placeholder="Search by owner name, cadastral lot,td no..."
           [(ngModel)]="searchText"
           (input)="applyFilters()"
         />
@@ -55,6 +55,7 @@
           <tr class="header-row">
             <th class="sticky-header ass_id">Assessor ID</th>
             <th class="sticky-header cad_no">Cadastral Lot No.</th>
+            <th class="sticky-header td_no">TD No.</th>
             <th class="sticky-header name_">Name of Owner</th>
             <th class="sticky-header inde">Index No.</th>
             <th class="sticky-header act">Actions</th>
@@ -68,6 +69,7 @@
               [ngClass]="{'cancelled-row': record.cancel_reason}">
             <td class="sticky-cell ass_id">{{ record.assessor_no }}</td>
             <td class="sticky-cell cad_no">{{ record.cadastral_no }}</td>
+            <td class="sticky-cell td_no">{{ record.td_no }}</td>
             <td class="sticky-cell name_">{{ record.name_owner }}</td>
             <td class="sticky-cell inde">{{ record.index_no }}</td>
             <td class="sticky-cell act">

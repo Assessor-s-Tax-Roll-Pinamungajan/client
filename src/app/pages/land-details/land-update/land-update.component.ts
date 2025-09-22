@@ -87,6 +87,7 @@ export class LandUpdateComponent {
     this.postForm = this.fb.group({
       assessor_no: [this.data.assessor_no || '', Validators.required],
       cadastral_no: [this.data.cadastral_no || '', Validators.required],
+      td_no: [this.data.td_no || ''],
       name_owner: [this.data.name_owner || '', Validators.required],
       index_no: [this.data.index_no || '', Validators.required],
       barangay: [this.data.barangay || '', Validators.required],
@@ -134,7 +135,7 @@ export class LandUpdateComponent {
 
     // Fetch dropdown options with loading indicator
     this.isOptionsLoading = true;
-    this.http.get<any[]>('http://192.168.8.8:5556/api/anislag/indexes').subscribe({
+    this.http.get<any[]>('http://localhost:5556/api/anislag/indexes').subscribe({
       next: (data) => {
         this.indexOptions = data.map(item => item.index_no).filter((v: string) => !!v);
       },
@@ -143,10 +144,10 @@ export class LandUpdateComponent {
         this.isOptionsLoading = false;
       }
     });
-    this.http.get<any[]>('http://192.168.8.8:5556/api/anislag/barangays').subscribe(data => {
+    this.http.get<any[]>('http://localhost:5556/api/anislag/barangays').subscribe(data => {
       this.barangayOptions = data.map(item => item.barangay).filter((v: string) => !!v);
     });
-    this.http.get<any[]>('http://192.168.8.8:5556/api/anislag').subscribe(data => {
+    this.http.get<any[]>('http://localhost:5556/api/anislag').subscribe(data => {
       this.allLots = data;
     });
   }

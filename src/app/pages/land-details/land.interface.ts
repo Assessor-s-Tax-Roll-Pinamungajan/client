@@ -2,6 +2,7 @@ export interface Lands{
    id:              number;
   assessor_no: number; 
   cadastral_no:  string  ;  
+  td_no?:         string  ;
   arp_A?:   string;          
   arp_B?:   string;          
   arp_C?:   string  ;        
@@ -19,5 +20,9 @@ export interface Lands{
 
   index_no:         string ;
   barangay:         string ;
+  cancel_reason?:   string ;
+  cancel_details?:  any ;
+  transferred_from?: any ;
   remarks?:          string ;
+  changes?:          string ;
 }

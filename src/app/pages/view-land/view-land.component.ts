@@ -53,7 +53,7 @@ export class ViewLandComponent implements OnInit {
   uniqueBarangay: string[] = [];
   filteredIndexes: string[] = [];
 
-  columnsToDisplay = [ 'assessor_no','cadastral_no', 'name_owner','index_no', 'action'];
+  columnsToDisplay = [ 'assessor_no','cadastral_no', 'td_no', 'name_owner','index_no', 'action'];
 
   constructor(private http: HttpClient, private apiService: ApiService) {}
 
@@ -83,7 +83,7 @@ export class ViewLandComponent implements OnInit {
 // delete land
   // onDelete(id: number) {
   //   if (confirm('Are you sure you want to delete this record?')) {
-  //     this.http.delete(`http://192.168.8.8:5556/anislag/${id}`).subscribe(() => {
+  //     this.http.delete(`http://localhost:5556/anislag/${id}`).subscribe(() => {
   //       this.records = this.records.filter(r => r.id !== id);
   //       this.filteredRecords = this.filteredRecords.filter(r => r.id !== id);
   //       this.extractUniqueIndexes(); // Update indexes too
@@ -98,7 +98,8 @@ export class ViewLandComponent implements OnInit {
       const matchesSearch =
         this.searchText === '' ||
         record.name_owner?.toLowerCase().includes(this.searchText.toLowerCase()) ||
-        record.cadastral_no?.toLowerCase().includes(this.searchText.toLowerCase());
+        record.cadastral_no?.toLowerCase().includes(this.searchText.toLowerCase())||
+        record.td_no?.toLowerCase().includes(this.searchText.toLowerCase());
 
       const matchesIndex =
         this.selectedIndex === '' || record.index_no === this.selectedIndex;

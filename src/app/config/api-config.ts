@@ -3,10 +3,10 @@
 
 export const API_CONFIG = {
   // For local development
-  // baseUrl: 'http://192.168.8.8:5556/api'
+  baseUrl: 'http://localhost:5556/api'
   
   // For server deployment - REPLACE WITH YOUR SERVER IP
-  baseUrl: 'http://YOUR_SERVER_IP:5556/api'
+  // baseUrl: 'http://192.168.8.8:5556/api'
   
   // Example: baseUrl: 'http://192.168.1.100:5556/api'
   // Example: baseUrl: 'http://10.0.0.50:5556/api'

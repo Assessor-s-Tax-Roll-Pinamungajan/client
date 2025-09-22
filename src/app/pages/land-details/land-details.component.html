@@ -46,6 +46,12 @@
                 </ng-template>
               </div>
 
+              <!-- Transfer notice - when this lot came from another lot -->
+              <div *ngIf="land.transferred_from" class="transfer-notice">
+                ℹ️ This LOT came from the LOT of Assessor No. 
+                <a [routerLink]="['/land-details', land.transferred_from.id]">{{ land.transferred_from.assessor_no }}</a>
+              </div>
+
     <div >
       <div class="index-value">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CEBU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
       <div class="under">PROVINCE/CITY</div>
@@ -63,6 +69,7 @@
       <tr>
         <th rowspan="2">Assessors Lot No.</th>
         <th rowspan="2">Cadastral Lot No.</th>
+        <th rowspan="2">TD No.</th>
         <th colspan="6">ARP</th>
         <th rowspan="2">Name of Owner</th>
         <th>Title No.</th>
@@ -86,52 +93,56 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>{{ land.assessor_no }}</td>
-        <td>{{ land.cadastral_no }}</td>
-        <td>{{ land.arp_A }}</td>
-        <td>{{ land.arp_B }}</td>
-        <td>{{ land.arp_C }}</td>
-        <td>{{ land.arp_D }}</td>
-        <td>{{ land.arp_E }}</td>
-        <td>{{ land.arp_F }}</td>
-        <td>{{ land.name_owner }}</td>
-        <td>{{ land.title_no }}</td>
-        <td>{{ land.area }}</td>
-        <td>{{ land.classification_no }}</td>
-        <td>{{ land.improvement_1 }}</td>
-        <td>{{ land.improvement_2 }}</td>
-        <td>{{ land.mch }}</td>
-        <td>{{ land.oth }}</td>
+      <tr *ngFor="let lot of tableLots" 
+          [ngClass]="{ 'cancelled-row': lot.isCanceled, 'reference-row': lot.isReferenceLot }"
+          [routerLink]="lot.isReferenceLot ? ['/land-details', lot.id] : null"
+          [style.cursor]="lot.isReferenceLot ? 'pointer' : 'default'">
+        <td>{{ lot.assessor_no }}</td>
+        <td>{{ lot.cadastral_no }}</td>
+        <td>{{ lot.td_no }}</td>
+        <td>{{ lot.arp_A }}</td>
+        <td>{{ lot.arp_B }}</td>
+        <td>{{ lot.arp_C }}</td>
+        <td>{{ lot.arp_D }}</td>
+        <td>{{ lot.arp_E }}</td>
+        <td>{{ lot.arp_F }}</td>
+        <td>{{ lot.name_owner }}</td>
+        <td>{{ lot.title_no }}</td>
+        <td>{{ lot.area }}</td>
+        <td>{{ lot.classification_no }}</td>
+        <td>{{ lot.improvement_1 }}</td>
+        <td>{{ lot.improvement_2 }}</td>
+        <td>{{ lot.mch }}</td>
+        <td>{{ lot.oth }}</td>
       </tr>
     </tbody>
   </table>
-  <div style="display: flex; flex-direction: row; align-items: flex-start; gap: 32px; margin-top: 24px;">
+  <div class="bot-container" >
     <!-- ✅ Image on the left, 70% width -->
 
-  <div class="left-section; style=flex: 0 0 100%">
-        <div style="flex: 0 0 50%; display: flex; justify-content: center; margin-bottom: 24px;">
+  <div class="left-section; ">
+        <div style="flex: 0 0 50%; display: flex; margin-bottom: 24px;">
           <img
             *ngIf="land.barangay && land.index_no && land.assessor_no"
             [src]="'assets/' + land.barangay.toUpperCase() + '/'+ land.index_no + '/' + land.assessor_no + '.png'"
             alt="Lot Photo should be found at client/src/assets/barangay/index_no/assessor_no.png"
-            style="display: block; max-width: 100%; height: auto;"
+            style="display: block; max-width: 90%; height: auto;"
           />
         </div>
 
-        <div style="flex: 0 0 5%; display: flex; justify-content: center;">
+        <div style="flex: 0 0 50%; display: flex;">
           <img
             *ngIf="land.barangay && land.index_no && land.assessor_no"
             [src]="'assets/' + land.barangay.toUpperCase() + '/'+ land.barangay.toUpperCase() + '.png'"
             alt="Barangay Photo should be found at client/src/assets/barangay/barangay.png"
-            style="display: block; max-width: 100%; height: auto;"
+            style="display: block; max-width: 90%; height: auto;"
           />
         </div>
   </div>
 
   <div class="right-section">
   
-      <div class="other-lots-section" style="flex: 0 0 36; margin-bottom: 24px;">
+      <div class="other-lots-section" style="flex: 0 0 40; margin-bottom: 24px;">
         <div *ngIf="otherLots.length > 0" class="other-lots-table">
           <h3>Other Lots in Index {{ land.index_no }}</h3>
           <div class="table-container">

@@ -150,11 +150,69 @@ body {
   background-color: #ffd6d6; /* Slightly darker red */
   color: #a10000;
 }
+.left-section{
+  /* background-color: #15df5f; */
+  flex: 0 0 20%; 
+}
+.right-section{
+  /* background-color: #15df5f; */
+  /* flex: 0 0 80%;  */
+  display: block;
+}
+.bot-container{
+  /* background-color: #FF0000; */
+  display: flex; 
+  flex-direction: row; 
+  align-items: flex-start; 
+  gap: 0px; 
+  margin-top: 24px;
+}
+/* Styling for canceled row in the main table */
+.cancelled-row {
+  background-color: #ffebee !important; /* Light red background */
+}
+
+.cancelled-row td {
+  background-color: #ffcdd2 !important; /* Slightly darker red */
+  color: #c62828 !important; /* Dark red text */
+  font-weight: bold;
+}
+
+/* Ensure reference rows have normal styling */
+.reference-row {
+  background-color: white !important;
+  transition: background-color 0.2s ease;
+}
+
+.reference-row td {
+  background-color: white !important;
+  color: inherit !important;
+  font-weight: normal !important;
+}
+
+.reference-row:hover {
+  background-color: #e3f2fd !important; /* Light blue on hover */
+}
+
+.reference-row:hover td {
+  background-color: #e3f2fd !important;
+}
 .cancel-notice {
   color: red;
   font-weight: bold;
   margin-bottom: 1rem;
   font-size: 1.1rem;
+}
+
+.transfer-notice {
+  color: #1976d2;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  background-color: #e3f2fd;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border-left: 4px solid #1976d2;
 }
 
 .pin-section {
@@ -180,8 +238,9 @@ body {
 /* Remarks and Changes sections */
 .remarks-section {
   /* background-color: #f8f9fa; */
-  padding: 1.5rem;
+  /* padding: 1.5rem; */
   /* display: flex; */
+  padding: 1rem;
   justify-content: space-between;
   border-radius: 8px;
   /* border: 1px solid #e9ecef; */
@@ -224,8 +283,8 @@ ng-template{
 
 .changes-block {
   background-color: #e3f2fd;
-  padding: 1rem;
-  width: 45%;
+  /* padding: 1rem; */
+  width: 100%;
   border-radius: 6px;
   border-left: 4px solid #2196f3;
 }

@@ -16,6 +16,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { UserVerificationComponent } from '../../../components/user-verification/user-verification.component';
 import { UserService } from '../../../services/user.service';
+import { BulkAddLandComponent } from '../bulk-add-land/bulk-add-land.component';
 
 @Component({
   selector: 'app-add-land',
@@ -44,6 +45,11 @@ export class AddLandComponent {
   indexOptions: string[] = [];
   filteredIndexes: string[] = [];
   barangayOptions: string[] = [];
+  
+  // Triple click detection
+  private clickCount = 0;
+  private clickTimer: any;
+  private readonly TRIPLE_CLICK_DELAY = 500; // 500ms window for triple click
   cancelReasons = [
     { value: '', label: 'None' },
     { value: 'subdivision', label: 'Cancelled due to subdivision' },
@@ -74,6 +80,7 @@ export class AddLandComponent {
     this.postForm = this.fb.group({
       assessor_no: ['', Validators.required],
       cadastral_no: ['', Validators.required],
+      td_no: [''],
       name_owner: ['', Validators.required],
       index_no: ['', Validators.required],
       barangay: ['', Validators.required],
@@ -98,14 +105,14 @@ export class AddLandComponent {
       consolidate_assessor_nos: this.fb.array([]),
       remarks: [''],
     });
-    this.http.get<any[]>('http://192.168.8.8:5556/api/anislag/indexes').subscribe(data => {
+    this.http.get<any[]>('http://localhost:5556/api/anislag/indexes').subscribe(data => {
       this.indexOptions = data.map(item => item.index_no).filter((v: string) => !!v);
       this.filteredIndexes = this.indexOptions.slice();
     });
-    this.http.get<any[]>('http://192.168.8.8:5556/api/anislag/barangays').subscribe(data => {
+    this.http.get<any[]>('http://localhost:5556/api/anislag/barangays').subscribe(data => {
       this.barangayOptions = data.map(item => item.barangay).filter((v: string) => !!v);
     });
-    this.http.get<any[]>('http://192.168.8.8:5556/api/anislag').subscribe(data => {
+    this.http.get<any[]>('http://localhost:5556/api/anislag').subscribe(data => {
       this.allLots = data;
     });
     // Listen for index_no changes to filter options
@@ -234,8 +241,51 @@ export class AddLandComponent {
       changes: userChanges
     };
 
-    this.http.post('http://192.168.8.8:5556/api/anislag', finalPayload).subscribe(() => {
+    this.http.post('http://localhost:5556/api/anislag', finalPayload).subscribe(() => {
       this.router.navigate(['/view-land']);
+    });
+  }
+
+  // Triple click detection for bulk add
+  onAddButtonClick() {
+    this.clickCount++;
+    
+    if (this.clickCount === 1) {
+      // First click - start timer
+      this.clickTimer = setTimeout(() => {
+        this.clickCount = 0;
+        // Single click - normal submit
+        this.onSubmit();
+      }, this.TRIPLE_CLICK_DELAY);
+    } else if (this.clickCount === 2) {
+      // Second click - reset timer
+      clearTimeout(this.clickTimer);
+      this.clickTimer = setTimeout(() => {
+        this.clickCount = 0;
+        // Double click - do nothing
+      }, this.TRIPLE_CLICK_DELAY);
+    } else if (this.clickCount === 3) {
+      // Third click - open bulk add dialog
+      clearTimeout(this.clickTimer);
+      this.clickCount = 0;
+      this.openBulkAddDialog();
+    }
+  }
+
+  openBulkAddDialog() {
+    const dialogRef = this.dialog.open(BulkAddLandComponent, {
+      width: '95vw',
+      maxWidth: '95vw',
+      height: '90vh',
+      maxHeight: '90vh',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Refresh the page or reload data if needed
+        window.location.reload();
+      }
     });
   }
 } 

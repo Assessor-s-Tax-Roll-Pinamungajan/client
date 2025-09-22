@@ -15,17 +15,17 @@ export class LandService {
 
   
 create(body:Lands){
-  return this.http.post<Lands[]>('http://192.168.8.8:5556/api/anislag',body)
+  return this.http.post<Lands[]>('http://localhost:5556/api/anislag',body)
 }
 
 
 update(id:number, body: Lands){ //using backtick instead of '' for hardcoding
-  return this.http.patch<Lands[]>(`http://192.168.8.8:5556/api/anislag/${id}`,body)
+  return this.http.patch<Lands[]>(`http://localhost:5556/api/anislag/${id}`,body)
 }
 
 
 delete(id: number){
-  return this.http.delete<Lands[]>(`http://192.168.8.8:5556/api/anislag/${id}`)
+  return this.http.delete<Lands[]>(`http://localhost:5556/api/anislag/${id}`)
 }
 
 

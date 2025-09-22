@@ -1,0 +1,253 @@
+<div class="bulk-add-container">
+  <div class="header">
+    <h2>Bulk Add Land Records</h2>
+    <button mat-icon-button (click)="onCancel()" class="close-button">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <form [formGroup]="bulkForm" (ngSubmit)="onSubmit()">
+    <div class="table-container">
+      <table mat-table [dataSource]="landRecords.controls" class="bulk-table">
+        
+        <!-- Assessor's Lot Column -->
+        <ng-container matColumnDef="assessor_no">
+          <th mat-header-cell *matHeaderCellDef>Assessor's Lot</th>
+          <td mat-cell *matCellDef="let control; let i = index">
+            <mat-form-field appearance="outline" class="compact-field">
+              <input matInput formControlName="assessor_no" placeholder="Assessor No">
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- Cadastral Lot No Column -->
+        <ng-container matColumnDef="cadastral_no">
+          <th mat-header-cell *matHeaderCellDef>Cadastral Lot No.</th>
+          <td mat-cell *matCellDef="let control; let i = index">
+            <mat-form-field appearance="outline" class="compact-field">
+              <input matInput formControlName="cadastral_no" placeholder="Cadastral No">
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- TD No Column -->
+        <ng-container matColumnDef="td_no">
+          <th mat-header-cell *matHeaderCellDef>TD No.</th>
+          <td mat-cell *matCellDef="let control; let i = index">
+            <mat-form-field appearance="outline" class="compact-field">
+              <input matInput formControlName="td_no" placeholder="TD No">
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- ARP A Column -->
+        <ng-container matColumnDef="arp_A">
+          <th mat-header-cell *matHeaderCellDef>A</th>
+          <td mat-cell *matCellDef="let control; let i = index">
+            <mat-form-field appearance="outline" class="compact-field">
+              <input matInput formControlName="arp_A" placeholder="A">
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- ARP B Column -->
+        <ng-container matColumnDef="arp_B">
+          <th mat-header-cell *matHeaderCellDef>B</th>
+          <td mat-cell *matCellDef="let control; let i = index">
+            <mat-form-field appearance="outline" class="compact-field">
+              <input matInput formControlName="arp_B" placeholder="B">
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- ARP C Column -->
+        <ng-container matColumnDef="arp_C">
+          <th mat-header-cell *matHeaderCellDef>C</th>
+          <td mat-cell *matCellDef="let control; let i = index">
+            <mat-form-field appearance="outline" class="compact-field">
+              <input matInput formControlName="arp_C" placeholder="C">
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- ARP D Column -->
+        <ng-container matColumnDef="arp_D">
+          <th mat-header-cell *matHeaderCellDef>D</th>
+          <td mat-cell *matCellDef="let control; let i = index">
+            <mat-form-field appearance="outline" class="compact-field">
+              <input matInput formControlName="arp_D" placeholder="D">
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- ARP E Column -->
+        <ng-container matColumnDef="arp_E">
+          <th mat-header-cell *matHeaderCellDef>E</th>
+          <td mat-cell *matCellDef="let control; let i = index">
+            <mat-form-field appearance="outline" class="compact-field">
+              <input matInput formControlName="arp_E" placeholder="E">
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- ARP F Column -->
+        <ng-container matColumnDef="arp_F">
+          <th mat-header-cell *matHeaderCellDef>F</th>
+          <td mat-cell *matCellDef="let control; let i = index">
+            <mat-form-field appearance="outline" class="compact-field">
+              <input matInput formControlName="arp_F" placeholder="F">
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- Name of Owner Column -->
+        <ng-container matColumnDef="name_owner">
+          <th mat-header-cell *matHeaderCellDef>Name of Owner</th>
+          <td mat-cell *matCellDef="let control; let i = index">
+            <mat-form-field appearance="outline" class="compact-field">
+              <input matInput formControlName="name_owner" placeholder="Owner Name">
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- Title No Column -->
+        <ng-container matColumnDef="title_no">
+          <th mat-header-cell *matHeaderCellDef>Title No.</th>
+          <td mat-cell *matCellDef="let control; let i = index">
+            <mat-form-field appearance="outline" class="compact-field">
+              <input matInput formControlName="title_no" placeholder="Title No">
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- Area Column -->
+        <ng-container matColumnDef="area">
+          <th mat-header-cell *matHeaderCellDef>Area (sq.m)</th>
+          <td mat-cell *matCellDef="let control; let i = index">
+            <mat-form-field appearance="outline" class="compact-field">
+              <input matInput formControlName="area" placeholder="Area">
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- Classification Code Column -->
+        <ng-container matColumnDef="classification_no">
+          <th mat-header-cell *matHeaderCellDef>Classification Code</th>
+          <td mat-cell *matCellDef="let control; let i = index">
+            <mat-form-field appearance="outline" class="compact-field">
+              <input matInput formControlName="classification_no" placeholder="Code">
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- Improvement 1 Column -->
+        <ng-container matColumnDef="improvement_1">
+          <th mat-header-cell *matHeaderCellDef>Improvement 1</th>
+          <td mat-cell *matCellDef="let control; let i = index">
+            <mat-form-field appearance="outline" class="compact-field">
+              <input matInput formControlName="improvement_1" placeholder="Imp 1">
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- Improvement 2 Column -->
+        <ng-container matColumnDef="improvement_2">
+          <th mat-header-cell *matHeaderCellDef>Improvement 2</th>
+          <td mat-cell *matCellDef="let control; let i = index">
+            <mat-form-field appearance="outline" class="compact-field">
+              <input matInput formControlName="improvement_2" placeholder="Imp 2">
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- Mch Column -->
+        <ng-container matColumnDef="mch">
+          <th mat-header-cell *matHeaderCellDef>Mch</th>
+          <td mat-cell *matCellDef="let control; let i = index">
+            <mat-form-field appearance="outline" class="compact-field">
+              <input matInput formControlName="mch" placeholder="Mch">
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- Oth Column -->
+        <ng-container matColumnDef="oth">
+          <th mat-header-cell *matHeaderCellDef>Oth</th>
+          <td mat-cell *matCellDef="let control; let i = index">
+            <mat-form-field appearance="outline" class="compact-field">
+              <input matInput formControlName="oth" placeholder="Oth">
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- Barangay Column -->
+        <ng-container matColumnDef="barangay">
+          <th mat-header-cell *matHeaderCellDef>Barangay</th>
+          <td mat-cell *matCellDef="let control; let i = index">
+            <mat-form-field appearance="outline" class="compact-field">
+              <mat-select formControlName="barangay" placeholder="Select Barangay">
+                <mat-option *ngFor="let barangay of barangayOptions" [value]="barangay">
+                  {{ barangay }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- Index No Column -->
+        <ng-container matColumnDef="index_no">
+          <th mat-header-cell *matHeaderCellDef>Index No.</th>
+          <td mat-cell *matCellDef="let control; let i = index">
+            <mat-form-field appearance="outline" class="compact-field">
+              <mat-select formControlName="index_no" placeholder="Select Index">
+                <mat-option *ngFor="let index of indexOptions" [value]="index">
+                  {{ index }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- Remarks Column -->
+        <ng-container matColumnDef="remarks">
+          <th mat-header-cell *matHeaderCellDef>Remarks</th>
+          <td mat-cell *matCellDef="let control; let i = index">
+            <mat-form-field appearance="outline" class="compact-field">
+              <input matInput formControlName="remarks" placeholder="Remarks">
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let control; let i = index">
+            <button mat-icon-button color="warn" (click)="removeRow(i)" 
+                    [disabled]="landRecords.length <= 1" 
+                    matTooltip="Remove row">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+
+    <div class="actions">
+      <button mat-raised-button color="primary" type="button" (click)="addNewRow()" class="add-row-button">
+        <mat-icon>add</mat-icon>
+        Add Row
+      </button>
+      
+      <div class="submit-actions">
+        <button mat-button type="button" (click)="onCancel()">Cancel</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!bulkForm.valid">
+          <mat-icon>save</mat-icon>
+          Add All Records
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

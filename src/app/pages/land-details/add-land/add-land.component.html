@@ -30,6 +30,10 @@
             Cadastral Lot No. is required
           </mat-error>
         </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>TD No.</mat-label>
+          <input matInput formControlName="td_no">
+        </mat-form-field>
       </div>
     </div>
     <!-- arp details -->
@@ -151,7 +155,7 @@
     <!-- Buttons -->
     <div class="form-section" style="text-align:right;">
       <button mat-stroked-button color="primary" type="button" (click)="postForm.reset()">Reset</button>
-      <button mat-raised-button color="primary" type="button" (click)="onSubmit()">Submit</button>
+      <button mat-raised-button color="primary" type="button" (click)="onAddButtonClick()">Submit</button>
     </div>
   </form>
 </mat-card> 

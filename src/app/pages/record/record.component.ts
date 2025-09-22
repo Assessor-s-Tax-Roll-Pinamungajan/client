@@ -44,7 +44,7 @@ export class RecordComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get<any[]>('http://192.168.8.8:5556/api/anislag').subscribe(data => {
+    this.http.get<any[]>('http://localhost:5556/api/anislag').subscribe(data => {
       this.records = data;
       this.filteredRecords = data;
       this.extractUniqueIndexes(); // Add this line
@@ -63,7 +63,7 @@ export class RecordComponent implements OnInit {
 // delete land
   // onDelete(id: number) {
   //   if (confirm('Are you sure you want to delete this record?')) {
-  //     this.http.delete(`http://192.168.8.8:5556/api/anislag/${id}`).subscribe(() => {
+  //     this.http.delete(`http://localhost:5556/api/anislag/${id}`).subscribe(() => {
   //       this.records = this.records.filter(r => r.id !== id);
   //       this.filteredRecords = this.filteredRecords.filter(r => r.id !== id);
   //       this.extractUniqueIndexes(); // Update indexes too
