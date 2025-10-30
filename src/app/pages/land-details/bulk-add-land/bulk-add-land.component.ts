@@ -91,7 +91,9 @@ export class BulkAddLandComponent implements OnInit {
   }
 
   addNewRow() {
+     console.log('addNewRow called, current length:', this.landRecords.length);
     this.landRecords.push(this.createLandRecordForm());
+    console.log('addNewRow finished, new length:', this.landRecords.length);
   }
 
   removeRow(index: number) {
@@ -101,7 +103,7 @@ export class BulkAddLandComponent implements OnInit {
   }
 
   loadIndexOptions() {
-    this.http.get<any[]>('http://localhost:5556/api/anislag/indexes').subscribe({
+    this.http.get<any[]>('http://192.168.8.8:5556/api/anislag/indexes').subscribe({
       next: (data) => {
         this.indexOptions = data.map(item => item.index_no).sort();
       },
@@ -112,7 +114,7 @@ export class BulkAddLandComponent implements OnInit {
   }
 
   loadBarangayOptions() {
-    this.http.get<any[]>('http://localhost:5556/api/anislag/barangays').subscribe({
+    this.http.get<any[]>('http://192.168.8.8:5556/api/anislag/barangays').subscribe({
       next: (data) => {
         this.barangayOptions = data.map(item => item.barangay).sort();
       },
@@ -123,7 +125,7 @@ export class BulkAddLandComponent implements OnInit {
   }
 
   loadAllLots() {
-    this.http.get<any[]>('http://localhost:5556/api/anislag').subscribe({
+    this.http.get<any[]>('http://192.168.8.8:5556/api/anislag').subscribe({
       next: (data) => {
         this.allLots = data;
       },

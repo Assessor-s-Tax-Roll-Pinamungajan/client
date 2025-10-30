@@ -17,6 +17,7 @@ import { LandService } from '../land.service';
 import { HttpClient } from '@angular/common/http';
 import { UserVerificationComponent } from '../../../components/user-verification/user-verification.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-land-update',
@@ -40,6 +41,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
         MatSnackBarModule,
         ReactiveFormsModule,
         MatProgressBarModule,
+        MatAutocompleteModule,
         
         // Custom Components (do not include dialog component here; opened dynamically)
   ],
@@ -51,6 +53,7 @@ export class LandUpdateComponent {
 
   postForm: FormGroup;
   indexOptions: string[] = [];
+  filteredIndexes: string[] = [];
   barangayOptions: string[] = [];
   isOptionsLoading = false;
   cancelReasons = [
@@ -62,6 +65,7 @@ export class LandUpdateComponent {
   ];
   warningMessage: string = '';
   allLots: any[] = [];
+  filteredLots: any[] = [];
 
   get cancelReason() {
     return this.postForm.get('cancel_reason')?.value;
@@ -135,20 +139,29 @@ export class LandUpdateComponent {
 
     // Fetch dropdown options with loading indicator
     this.isOptionsLoading = true;
-    this.http.get<any[]>('http://localhost:5556/api/anislag/indexes').subscribe({
+    this.http.get<any[]>('http://192.168.8.8:5556/api/anislag/indexes').subscribe({
       next: (data) => {
         this.indexOptions = data.map(item => item.index_no).filter((v: string) => !!v);
+        this.filteredIndexes = this.indexOptions.slice();
       },
       error: () => {},
       complete: () => {
         this.isOptionsLoading = false;
       }
     });
-    this.http.get<any[]>('http://localhost:5556/api/anislag/barangays').subscribe(data => {
+    this.http.get<any[]>('http://192.168.8.8:5556/api/anislag/barangays').subscribe(data => {
       this.barangayOptions = data.map(item => item.barangay).filter((v: string) => !!v);
     });
-    this.http.get<any[]>('http://localhost:5556/api/anislag').subscribe(data => {
+    this.http.get<any[]>('http://192.168.8.8:5556/api/anislag').subscribe(data => {
       this.allLots = data;
+      this.filteredLots = this.allLots.slice();
+    });
+
+    // Listen for index_no changes to filter options
+    this.postForm.get('index_no')?.valueChanges.subscribe(value => {
+      this.filteredIndexes = this.indexOptions.filter(option =>
+        option.toLowerCase().includes((value || '').toLowerCase())
+      );
     });
   }
 
@@ -163,6 +176,23 @@ export class LandUpdateComponent {
   }
   removeConsolidateAssessorNo(i: number) {
     this.consolidateAssessorNos.removeAt(i);
+  }
+
+  // Method to filter lots based on search input
+  filterLots(searchValue: string): void {
+    if (!searchValue) {
+      this.filteredLots = this.allLots.slice();
+    } else {
+      this.filteredLots = this.allLots.filter(lot => 
+        `${lot.index_no}-${lot.assessor_no}`.toLowerCase().includes(searchValue.toLowerCase())
+      );
+    }
+  }
+
+  // Event handler for assessor number input changes
+  onAssessorNoInput(event: any): void {
+    const searchValue = event.target.value;
+    this.filterLots(searchValue);
   }
 
   onSubmit(){

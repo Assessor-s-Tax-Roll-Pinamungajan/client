@@ -105,14 +105,14 @@ export class AddLandComponent {
       consolidate_assessor_nos: this.fb.array([]),
       remarks: [''],
     });
-    this.http.get<any[]>('http://localhost:5556/api/anislag/indexes').subscribe(data => {
+    this.http.get<any[]>('http://192.168.8.8:5556/api/anislag/indexes').subscribe(data => {
       this.indexOptions = data.map(item => item.index_no).filter((v: string) => !!v);
       this.filteredIndexes = this.indexOptions.slice();
     });
-    this.http.get<any[]>('http://localhost:5556/api/anislag/barangays').subscribe(data => {
+    this.http.get<any[]>('http://192.168.8.8:5556/api/anislag/barangays').subscribe(data => {
       this.barangayOptions = data.map(item => item.barangay).filter((v: string) => !!v);
     });
-    this.http.get<any[]>('http://localhost:5556/api/anislag').subscribe(data => {
+    this.http.get<any[]>('http://192.168.8.8:5556/api/anislag').subscribe(data => {
       this.allLots = data;
     });
     // Listen for index_no changes to filter options
@@ -241,7 +241,7 @@ export class AddLandComponent {
       changes: userChanges
     };
 
-    this.http.post('http://localhost:5556/api/anislag', finalPayload).subscribe(() => {
+    this.http.post('http://192.168.8.8:5556/api/anislag', finalPayload).subscribe(() => {
       this.router.navigate(['/view-land']);
     });
   }

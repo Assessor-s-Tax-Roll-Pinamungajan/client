@@ -74,7 +74,7 @@ export class NavbarComponent {
       const verifyRef = this.dialog.open(VerificationQuizDialogComponent, { width: '420px' });
       verifyRef.afterClosed().subscribe(async (ok) => {
         if (!ok) return;
-        this.http.post('http://localhost:5556/api/users', reg).subscribe({
+        this.http.post('http://192.168.8.8:5556/api/users', reg).subscribe({
           next: () => this.snackBar.open('User registered!', 'Close', { duration: 2500 }),
           error: () => this.snackBar.open('Registration failed', 'Close', { duration: 2500 })
         });

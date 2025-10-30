@@ -80,17 +80,6 @@ export class ViewLandComponent implements OnInit {
     this.filteredRecords = this.records;
     this.updateFilteredIndexes(); // Reset filtered indexes
   }
-// delete land
-  // onDelete(id: number) {
-  //   if (confirm('Are you sure you want to delete this record?')) {
-  //     this.http.delete(`http://localhost:5556/anislag/${id}`).subscribe(() => {
-  //       this.records = this.records.filter(r => r.id !== id);
-  //       this.filteredRecords = this.filteredRecords.filter(r => r.id !== id);
-  //       this.extractUniqueIndexes(); // Update indexes too
-  //       this.extractUniqueBarangay(); // Update barangay too
-  //     });
-  //   }
-  // }
 
   // 🔍 Filtering logic
   applyFilters() {
@@ -117,7 +106,7 @@ export class ViewLandComponent implements OnInit {
     this.records.forEach(record => {
       indexSet.add(record.index_no);
     });
-    this.uniqueIndexes = Array.from(indexSet);
+    this.uniqueIndexes = Array.from(indexSet).sort();
   }
 
   extractUniqueBarangay() {
@@ -125,7 +114,7 @@ export class ViewLandComponent implements OnInit {
     this.records.forEach(record => {
       barangaySet.add(record.barangay);
     });
-    this.uniqueBarangay = Array.from(barangaySet);
+    this.uniqueBarangay = Array.from(barangaySet).sort();
   }
 
   // New method to update filtered indexes based on selected barangay
@@ -141,7 +130,7 @@ export class ViewLandComponent implements OnInit {
           indexSet.add(record.index_no);
         }
       });
-      this.filteredIndexes = Array.from(indexSet);
+      this.filteredIndexes = Array.from(indexSet).sort();
     }
     
     // Reset selected index if it's no longer valid
