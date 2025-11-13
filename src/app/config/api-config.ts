@@ -2,11 +2,11 @@
 // Change this to your server's IP address when deploying
 
 export const API_CONFIG = {
-  // For server deployment
-  baseUrl: 'http://192.168.8.8:5556/api'
-  
   // For local development
-  // baseUrl: 'http://localhost:5556/api'
+  baseUrl: 'http://localhost:5556/api'
+  
+  // For server deployment - REPLACE WITH YOUR SERVER IP
+  // baseUrl: 'http://192.168.8.8:5556/api'
 };
 
 // Helper function to get full API URL

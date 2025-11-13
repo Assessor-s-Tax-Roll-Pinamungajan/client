@@ -152,11 +152,11 @@ body {
 }
 .left-section{
   /* background-color: #15df5f; */
-  flex: 0 0 20%; 
+  flex: 0 0 75%; 
 }
 .right-section{
   /* background-color: #15df5f; */
-  /* flex: 0 0 80%;  */
+  flex: 0 0 25%; 
   display: block;
 }
 .bot-container{

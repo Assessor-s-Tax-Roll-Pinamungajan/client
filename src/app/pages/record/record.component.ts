@@ -44,7 +44,7 @@ export class RecordComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get<any[]>('http://192.168.8.8:5556/api/anislag').subscribe(data => {
+    this.http.get<any[]>('http://localhost:5556/api/anislag').subscribe(data => {
       this.records = data;
       this.filteredRecords = data;
       this.extractUniqueIndexes(); // Add this line

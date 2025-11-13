@@ -87,7 +87,7 @@ export class LandDetailsComponent implements OnInit {
     const referenceLotIds = this.land.cancel_details.lots.map((lot: any) => lot.id);
     
     // Fetch all lots to get the reference lots data
-    this.http.get<any[]>(`http://192.168.8.8:5556/api/anislag`).subscribe({
+    this.http.get<any[]>(`http://localhost:5556/api/anislag`).subscribe({
       next: (data) => {
         const referenceLots = data.filter(lot => referenceLotIds.includes(lot.id));
         
@@ -123,7 +123,7 @@ export class LandDetailsComponent implements OnInit {
 
   fetchLandData(id: string) {
     this.isLoading = true;
-    this.http.get(`http://192.168.8.8:5556/api/anislag/${id}`).subscribe({
+    this.http.get(`http://localhost:5556/api/anislag/${id}`).subscribe({
       next: (data) => {
         this.land = data;
         this.isLoading = false;
@@ -141,7 +141,7 @@ export class LandDetailsComponent implements OnInit {
 
   fetchOtherLots(indexNo: string, currentLotId: string) {
     this.isLoadingOtherLots = true;
-    this.http.get<any[]>(`http://192.168.8.8:5556/api/anislag`).subscribe({
+    this.http.get<any[]>(`http://localhost:5556/api/anislag`).subscribe({
       next: (data) => {
         // Filter lots with the same index but exclude the current lot
         this.otherLots = data.filter(lot => 
