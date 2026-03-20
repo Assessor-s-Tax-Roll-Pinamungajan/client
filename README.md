@@ -1,6 +1,16 @@
 Assessor's Tax Roll System - Pinamungajan
 =========================================
 
+This capstone project was developed by: 
+
+Tanutan, Vanni Louise - Full Stack Developer 
+Caño, Shane Starlet - Frontend Developer
+Hacbang, Julie Paz - Project Manager 
+Ariate, Lex - System Analyst
+Labajo, Rheffe - Tester
+
+
+**Project Description:**
 A LAN-based system for managing and displaying the municipality's tax roll records.  
 This project consists of two repositories:
 
