@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,7 +15,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatOptionModule } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-view-land',
@@ -55,9 +55,26 @@ export class ViewLandComponent implements OnInit {
 
   columnsToDisplay = [ 'assessor_no','cadastral_no', 'td_no', 'name_owner','index_no', 'action'];
 
-  constructor(private http: HttpClient, private apiService: ApiService) {}
+  constructor(
+    private http: HttpClient, 
+    private apiService: ApiService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+    // Read query parameters from URL once on init
+    const params = this.route.snapshot.queryParams;
+    if (params['search_query']) {
+      this.searchText = params['search_query'];
+    }
+    if (params['barangay']) {
+      this.selectedBarangay = params['barangay'];
+    }
+    if (params['index']) {
+      this.selectedIndex = params['index'];
+    }
+
     this.isLoading = true;
     this.http.get<any[]>(this.apiService.getAnislagUrl()).subscribe( {
       next: (data) => {
@@ -66,6 +83,12 @@ export class ViewLandComponent implements OnInit {
       this.extractUniqueIndexes(); // Add this line
       this.extractUniqueBarangay(); // Add this line
       this.updateFilteredIndexes(); // Initialize filtered indexes
+      
+      // Apply filters after data is loaded if URL params exist
+      if (this.searchText || this.selectedBarangay || this.selectedIndex) {
+        this.applyFiltersWithoutUrlUpdate(); // Apply filters without updating URL (already set)
+      }
+      
       this.isLoading = false;
     }, error: () => {
       this.isLoading = false;
@@ -79,10 +102,23 @@ export class ViewLandComponent implements OnInit {
     this.selectedBarangay = '';
     this.filteredRecords = this.records;
     this.updateFilteredIndexes(); // Reset filtered indexes
+    this.updateUrlParams(); // Clear URL params
   }
 
   // 🔍 Filtering logic
   applyFilters() {
+    this.filterRecords();
+    // Update URL with current filter values
+    this.updateUrlParams();
+  }
+  
+  // Filter records without updating URL (used when loading from URL params)
+  applyFiltersWithoutUrlUpdate() {
+    this.filterRecords();
+  }
+  
+  // Core filtering logic
+  private filterRecords() {
     this.filteredRecords = this.records.filter(record => {
       const matchesSearch =
         this.searchText === '' ||
@@ -97,6 +133,30 @@ export class ViewLandComponent implements OnInit {
         this.selectedBarangay === '' || record.barangay === this.selectedBarangay;
 
       return matchesSearch && matchesIndex && matchesBarangay;
+    });
+  }
+  
+  // Update URL query parameters
+  updateUrlParams() {
+    const queryParams: any = {};
+    
+    if (this.searchText && this.searchText.trim()) {
+      queryParams['search_query'] = this.searchText.trim();
+    }
+    
+    if (this.selectedBarangay && this.selectedBarangay.trim()) {
+      queryParams['barangay'] = this.selectedBarangay.trim();
+    }
+    
+    if (this.selectedIndex && this.selectedIndex.trim()) {
+      queryParams['index'] = this.selectedIndex.trim();
+    }
+    
+    // Navigate with query params, preserving the current route
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: Object.keys(queryParams).length > 0 ? queryParams : {},
+      replaceUrl: true // Use replaceUrl to avoid cluttering browser history
     });
   }
 
@@ -142,7 +202,7 @@ export class ViewLandComponent implements OnInit {
   // Method to handle barangay selection change
   onBarangayChange() {
     this.updateFilteredIndexes();
-    this.applyFilters();
+    this.applyFilters(); // This will also update URL params
   }
   
 }
